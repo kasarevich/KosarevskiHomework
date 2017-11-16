@@ -14,15 +14,22 @@ public class Task_1 {
       }
       int min = arr[0];
       int max = arr[0];
+      int indexMin = -1;
+      int indexMax = -1;
       for(int i = 1; i < arr.length; i++){
           if(min > arr[i]){
               min = arr[i];
+              indexMin = i;
           }
           if(max < arr[i]){
               max = arr[i];
+              indexMax = i;
           }
       }
+        System.out.println(Arrays.toString(arr));
         System.out.println("min value = " + min + "\nmax value = " + max);
+        arr[indexMin] = 0;
+        arr[indexMax] = 99;
         System.out.println(Arrays.toString(arr));
 
     }
