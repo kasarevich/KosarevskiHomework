@@ -1,51 +1,34 @@
 package by.it_academy.task2;
+import java.util.Scanner;
 
 import java.util.Scanner;
 
 /*
-Создайте массив с 10-ю переменными типа int.
-Значения необходимо вводить с клавиатуры в отдельном методе.
-Затем выведите все значения на экран также в отдельном методе в виде:
-"значение" | "значение 2" | "значение 3" |  и тд. -
-Далее отсортируйте массив по возрастанию способами из статьи или любыми другими алгоритмами.
-Результат вывести на экран:
-"значение" | "значение 2" | "значение 3" |  и тд.
-Далее найдите в массиве все четные числа и выведите их на экран:
-"значение" | "значение 2" | "значение 3" |  и тд.
-
-В итоге у вас должна получиться программа как минимум с 3 методами:
-1- для ввода данных с клавиатуры
-2 - для сортировки
-3 - для вывода
-
-Вывод значений массива на экран должен быть сделан в отдельном методе,
-этот метод будет использоваться для вывода значений массива до сортировки и после сортировки.
-
-Сортировку нужно сделать 3-мя различными способами (на ваш выбор).
-
+Представьте, что вам необходимо написать метод, определяющий количество страниц для вывода N новостей с учетом того,
+что на одной странице помещается 10 записей. В итоге у вас будет метод, который возвращает количество страниц,
+а на вход принимает количество новостей. Помните, что тут округлять нужно всегда к большему.
  */
+
 public class Task2 {
     public static void main(String[] arg) {
-        int[] arr = new int[10];
-        arr = input(arr);
-        output(arr);
-
+      Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of news:\n news = ");
+        int news = scanner.nextInt();
+        System.out.println("For public " + news + "news need " + pagesCalc(news) + " pages");
     }
 
-    static public int[] input(int a[]) {
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < a.length; i++) {
-            System.out.print("Enter arr[" + i + "]:\n" + "arr[" + i + "] = ");
-            a[i] = scanner.nextInt();
-        }
-        return a;
+
+    /**
+     *
+     * @param n - the number of news
+     * @return the mumber of psges
+     */
+
+    public static int pagesCalc(int n){
+        int p = n/10;
+        if (n % 10 > 0)
+            p++;
+        return p;
     }
 
-    static public void output(int a[]) {
-        for (int i = 0; i < a.length; i++) {
-            System.out.print(a[i]);
-            //if (i != a.length)
-               // System.out.printf("\t|");
-        }
-    }
 }
