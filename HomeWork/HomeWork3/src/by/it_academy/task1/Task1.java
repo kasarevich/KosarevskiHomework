@@ -1,5 +1,4 @@
 package by.it_academy.task1;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -28,11 +27,25 @@ public class Task1 {
     public static void  main(String []arg){
         int [] arr = new int[10];
         arr = input(arr);
+        System.out.println("Default array:");
+        output(arr);
+        arr = bubleSort(arr);
+        System.out.println("Sorted array:");
+        output(arr);
+        int evenArr [] = new int[evenCalc(arr)];    // Создал новый массив с четными, чтобы пользоваться методами вывода массивов, написанным ранее
+        int i = 0;
+        for (int j = 0; j < arr.length; j++) {         // Записываем в новый массив только четные, затем выводим на экран четные в том же формате, что и начальный массив
+            if (arr[j] % 2 == 0){
+                evenArr[i] = arr[j];
+                i++;
+            }
+        }
+        System.out.println("Array contains even only:");
+        output(evenArr);
 
-        output(arr);
-        arr = sort(arr);
-        output(arr);
+
     }
+
 
 
     static public int[] input(int a[]){
@@ -43,6 +56,8 @@ public class Task1 {
         }
         return a;
     }
+
+
 
     static public void output(int a[]){
         System.out.print("[");                      // Не понимаю зачем, но вы сказали в слэк
@@ -55,20 +70,35 @@ public class Task1 {
 
     }
 
-    static public int[] sort (int a[]){
-        for (int i = 0; i < a.length; i++){
-            int min = a[i];
-            int indexMin = i;
-            for (int j = i+1; j<a.length; j++){
-                if(a[j]<min){
-                    int buf  = a[i];
-                    a[i] = a[j];
-                    a[j] = buf;
-                }
 
+
+    static public int[] bubleSort (int a[]){
+        for (int i = a.length - 1; i > 0 ; i--){
+            for (int j = 0; j < i; j++){
+                if(a[j] > a[j+1]){
+                    int buf  = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = buf;
+                }
             }
         }
 
         return a;
     }
+
+    /**
+     * Method returns size of new array
+     * @param a
+     * @return Size ow new array
+     */
+
+    static public int evenCalc (int[] a){
+        int counter = 0;
+        for (int i = 0; i < a.length; i++){
+            if(a[i] % 2 == 0)
+                counter ++;
+        }
+        return counter;
+    }
+
 }
