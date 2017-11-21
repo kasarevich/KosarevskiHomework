@@ -57,8 +57,6 @@ public class Task1 {
         return a;
     }
 
-
-
     static public void output(int a[]){
         System.out.print("[");                      // Не понимаю зачем, но вы сказали в слэк
         for (int i = 0; i < a.length; i++){         //"@Dima нет, там нужно закрывать скобкой ] - в этом то и смысл был, что бы вы красиво обработали эту ситуацию"
@@ -69,8 +67,6 @@ public class Task1 {
         System.out.println("]");
 
     }
-
-
 
     static public int[] bubleSort (int a[]){
         for (int i = a.length - 1; i > 0 ; i--){
@@ -85,6 +81,52 @@ public class Task1 {
 
         return a;
     }
+
+    // Сортировка выбором (в данной программе метод не используется)
+    public static int[] selectionSort(int[] a){
+          for (int i = 0; i < a.length; i++) {
+              int min = a[i];
+              int min_i = i;
+              for (int j = i + 1; j < a.length; j++) {
+                  if (a[j] < min) {
+                      min = a[j];
+                      min_i = j;
+                  }
+              }
+              if (i != min_i) {
+                  int buf = a[i];
+                  a[i] = a[min_i];
+                  a[min_i] = buf;
+              }
+          }
+            return a;
+    }
+    // Сортировка перемешиванием (в данной программе метод не используется)
+    public static int [] shakerSort(int array[]) {
+         int buff;
+         int left=0;
+         int right=array.length-1;
+         do {
+             for (int i=left; i<right;i++) {
+                     if (array[i]>array[i+1]) {
+                             buff = array[i];
+                             array[i] = array[i + 1];
+                             array[i + 1] = buff;
+                         }
+                 }
+             right--;
+             for (int i=right; i>left; i--) {
+                     if (array[i]<array[i-1]) {
+                             buff = array[i];
+                             array[i] = array[i - 1];
+                          array[i - 1] = buff;
+                      }
+               }
+                  left++;
+            } while (left <right);
+         return array;
+           }
+
 
     /**
      * Method returns size of new array
