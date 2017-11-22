@@ -85,7 +85,7 @@ public class Patient {
 
 
 
-        public void printPatient(int index){    // Вывод всех полей объекта
+        public void printPatient(){    // Вывод всех полей объекта
         String status1 = new String();
         if (status == true){
             status1 = "На лечении";

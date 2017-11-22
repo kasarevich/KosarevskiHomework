@@ -39,7 +39,7 @@ import java.util.regex.*;
 
                     case 2:
                         for (int i = 0; i< patients.size(); i++){
-                            patients.get(i).printPatient(i);    //Вывод всех пациентов на экран
+                            patients.get(i).printPatient();    //Вывод всех пациентов на экран
                         }
                     break;
 
@@ -49,9 +49,7 @@ import java.util.regex.*;
                         int counter = 0;
                         for (int i = 0; i < patients.size(); i++){
                             if (searchPatient(str, patients.get(i))){
-                                patients.get(i).printPatient(i);     // Можно было метод PrintPatient сделать void, тогда индекс не нужен, но я
-                                                                     // об этом подумал только сейчас,когда уже все готово и я просто расписываю
-                                                                    // комменты в потенциально непонятных местах, а сейчас уже поздно и мне лень что-то менять
+                                patients.get(i).printPatient();
                                 counter++;          // счетчик, чтобы вывести на экран сообщение о том, что ничего не найдено, если он == 0
                             }
                         }
