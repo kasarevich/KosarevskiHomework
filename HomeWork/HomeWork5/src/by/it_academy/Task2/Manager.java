@@ -3,28 +3,41 @@ package by.it_academy.Task2;
 public class Manager {
     ATM atm = new ATM();
 
-    public boolean add(int sum){
+    private void check(ATM atm, int sum, boolean operation){
+        int buf100 = 0;
+        int buf50 = 0;
+        int buf20 = 0;
         if(sum % 100 == 0){
-           atm.setHundred(atm.getHundred()+sum/10); // начинаем со 100, потому что если здесь в if - true, остальные условия не проверяются
-            return true;
+            buf100 = sum/100; // начинаем со 100, потому что если здесь в if - true, остальные условия не проверяются
         }
         else if(sum % 50 == 0){
-            atm.setHundred(atm.getHundred()+sum/100);
-            atm.setFifty(atm.getFifty()+1);  // Поскольку сумма кратна 50, а при целочисленном делении на 100 мы получили количество сотен, в остаток пошла только одна 50-ка.
-            return true;
+            buf100 = (sum - 50)/100;
+            buf50 = 1;                  // Поскольку сумма кратна 50, а при целочисленном делении на 100 мы получили количество сотен, в остаток пошла только одна 50-ка.
         }
         else if (sum % 20 == 0){
-            atm.setHundred(atm.getHundred()+sum/100);
-            int buf50 = sum % 100;
-            if (buf50%20 == 0)
-            {atm.setTwenty(atm.getTwenty()+ buf50/20);} // Проверка для сумм типа 160 - чтобы не зачисляло 1 пятдесят, а сразу проверила делится ли без остатка
-            else {                                           // на 20. в этом случае операторы работы с 50-рублевыми пропускаются, а 20 зачисляются
-                atm.setFifty(atm.getFifty()+ buf50/50);
-            int buf20 = buf50 % 50;
-                atm.setTwenty(atm.getTwenty()+ buf20/20);
-            return true;}
+            buf100 = sum/100;
+            int buffer = sum%100;
+            if(buffer%20 == 0) {
+                buf20 = buffer/20;
+            }else {
+                    buf50 = buffer/50;
+                    buffer = buffer%50;
+                    buf20 = buffer/20;
+                  }
+            } else
+            System.out.println("Неверная сумма!");
+
+        if(operation){
+            atm.setHundred(atm.getHundred() + buf100);
+            atm.setFifty(atm.getFifty() + buf50);
+            atm.setTwenty(atm.getTwenty() + buf20);
         }
-        else return false;
-        return false;
+        else{
+            atm.setHundred(atm.getHundred() - buf100);
+            atm.setFifty(atm.getFifty() - buf50);
+            atm.setTwenty(atm.getTwenty() - buf20);
+        }
+
+
     }
 }
