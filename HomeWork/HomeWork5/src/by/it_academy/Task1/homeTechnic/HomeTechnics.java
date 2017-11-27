@@ -1,4 +1,6 @@
-package by.it_academy.Task1;
+package by.it_academy.Task1.homeTechnic;
+
+import by.it_academy.Task1.Technics;
 
 /**
  * Абстрактный класс бытовой техники. У потомков общее поле - потребляемая мощность. Клас является подклассом Technics

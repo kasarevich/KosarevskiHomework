@@ -1,4 +1,4 @@
-package by.it_academy.Task1;
+package by.it_academy.Task1.computerTechnic;
 
 /**
  * Наследник компьютерной периферии(ComputerTechnics)

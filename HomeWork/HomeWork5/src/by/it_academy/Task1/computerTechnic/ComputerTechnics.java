@@ -1,4 +1,6 @@
-package by.it_academy.Task1;
+package by.it_academy.Task1.computerTechnic;
+
+import by.it_academy.Task1.Technics;
 
 /**
  * Абстрактный класс компьютерной периферии. Является подклассом Technics
