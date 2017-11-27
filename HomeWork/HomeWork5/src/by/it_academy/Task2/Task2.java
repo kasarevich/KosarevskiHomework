@@ -26,7 +26,6 @@ public class Task2 {
     ATM atm = new ATM();
     Scanner in = new Scanner(System.in);byte usl = 0;
             do {
-                atm.check();
             System.out.println("Введите 1 - для добавления наличных денег на счет.\n\t\t2 - для снятия денег со счета\n\t\tлюбую клавишу - для выхода");
             byte num = in.nextByte();
             switch (num){

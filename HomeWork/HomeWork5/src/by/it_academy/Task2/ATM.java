@@ -54,6 +54,8 @@ public class ATM {
                 else if (sum % 20 == 0){
                 hundred = hundred + sum/100;
                 int buf50 = sum % 100;
+                if (buf50%20 == 0){twenty = twenty + buf50/20;} // Проверка для сумм типа 160 - чтобы не зачисляло 1 пятдесят, а сразу проверила делится ли без остатка
+                else                                            // на 20. в этом случае операторы работы с 50-рублевыми пропускаются, а 20 зачисляются
                 fifty = fifty + buf50/50;
                 int buf20 = buf50 % 50;
                 twenty = twenty + buf20/20;
