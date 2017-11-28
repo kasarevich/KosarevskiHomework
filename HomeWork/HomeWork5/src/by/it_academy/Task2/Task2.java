@@ -23,27 +23,27 @@ import java.util.Scanner;
 
 public class Task2 {
     public static void main(String []args){
-    ATM atm = new ATM();
+    Manager manager = new Manager();
     Scanner in = new Scanner(System.in);byte usl = 0;
             do {
-            System.out.println("Введите 1 - для добавления наличных денег на счет.\n\t\t2 - для снятия денег со счета\n\t\tлюбую клавишу - для выхода");
+            System.out.println("Введите 1 - для добавления наличных денег на счет.\n\t\t2 - для снятия денег со счета\n\t\t3 - для проверки количества купюр\n\t\tлюбую клавишу - для выхода");
             byte num = in.nextByte();
             switch (num){
                 case 1:
                     System.out.println("Введите сумму:");
                     int sum = in.nextInt();
-                    if(atm.add(sum))
+                    if(manager.add(sum))
                         System.out.println("Деньги успешно добавлены!");
                     else
                         System.out.println("Неверная сумма! \nБанкомат принимает купюры номиналом 100р, 50р, 20р");
-                    atm.check();
                     break;
                 case 2:
                     System.out.println("Введите сумму:");
                     int sum1 = in.nextInt();
-                    atm.withdraw(sum1);
-                    atm.check();
+                    manager.withdraw(sum1);
                     break;
+                case 3:
+                    manager.check();
                 default:
                     break;
             }
@@ -52,10 +52,5 @@ public class Task2 {
             usl = in.nextByte();
         }while (usl == 0);
 
-
-
-
-
-        System.out.println("Неверная сумма! \nБанкомат принимает купюры номиналом 100р, 50р, 20р");
     }
 }
