@@ -44,6 +44,7 @@ public class Task2 {
                     break;
                 case 3:
                     manager.check();
+                    break;
                 default:
                     break;
             }
