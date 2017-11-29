@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Main {
    static public void main(String []args){
        ConcreteATM atm = new ConcreteATM("BPSATM", "Panasonic");
-
        Scanner in = new Scanner(System.in);byte usl = 0;
        do {
            System.out.println("Введите 1 - для добавления наличных денег на счет.\n\t\t2 - для снятия денег со счета\n\t\t3 - для проверки количества купюр" +
@@ -47,7 +46,6 @@ public class Main {
                default:
                    break;
            }
-
            System.out.println("Продолжить? Да - нажмите 0, нет - нажмите 1:");
            usl = in.nextByte();
        }while (usl == 0);

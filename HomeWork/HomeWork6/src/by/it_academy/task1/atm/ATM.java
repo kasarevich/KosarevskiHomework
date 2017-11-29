@@ -4,6 +4,11 @@ import by.it_academy.task1.interfaces.AtmWithAdd;
 import by.it_academy.task1.interfaces.AtmWithChange;
 import by.it_academy.task1.interfaces.AtmWithDraw;
 
+/**
+ * Абстрактный класс банкомата. Поля - имя банкомата и производитель.
+ * Наследники данного класса должны реализовать 3 интерфейса для снятия денег со счета,
+ * для добавления денег на счет, а так же интерфейс с методом, проверяющим, на какие купюры разбить сумму
+ */
 public abstract class ATM implements AtmWithAdd, AtmWithDraw, AtmWithChange {
     private String name;
     private String producer;
