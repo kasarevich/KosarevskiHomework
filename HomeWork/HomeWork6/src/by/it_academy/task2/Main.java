@@ -5,15 +5,10 @@ public class Main {
         int[] arr = new int[10];
         int[] arr1 = new int[20];
 
-        for (int i =0; i < arr.length; i++) {
-            arr[i] = 1;
-        }
+        Arrays.fill(arr, 1);
+        Arrays.fill(arr1, 0);
 
         System.out.println(Arrays.toString(arr)); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-
-        for (int i =0; i < arr1.length; i++) {
-            arr1[i] = 2;
-        }
 
         System.out.println(Arrays.toString(arr1)); //[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 
