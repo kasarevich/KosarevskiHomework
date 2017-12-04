@@ -16,9 +16,9 @@ public class Manager {
             System.out.println("Введите фамилию:");
             String surname = in.next();
             System.out.println("Введите год рождения:");
-            date.setYear(in.nextInt()-1900);
+            date.setYear(in.nextInt()-1900);            // для корректной записи в случае чтения инт
             System.out.println("Введите месяц рождения:");
-            date.setMonth(in.nextInt()-1);
+            date.setMonth(in.nextInt()-1);              // месяца с 0
             System.out.println("Введите день рождения:");
             date.setDate(in.nextInt());
             System.out.println("Введите час рождения:");
@@ -34,5 +34,8 @@ public class Manager {
                 System.out.println("Дaта рождения");
                 System.out.println(sdf.format(s.getDate()));
             }
+        public static void search(ArrayList<Student> s){
+
+        }
 
 }
