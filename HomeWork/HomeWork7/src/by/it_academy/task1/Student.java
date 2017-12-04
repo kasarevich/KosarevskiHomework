@@ -36,4 +36,6 @@ public class Student {
     public void setDate(Date date) {
         this.date = date;
     }
+
+
 }
