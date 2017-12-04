@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Main {
     public static void main(String []arg) {
+/*
         try {
             // блок catch выполнится тогда, когда произойдет проблема
             SimpleDateFormat sdf = new SimpleDateFormat("");
@@ -22,7 +23,7 @@ public class Main {
             System.out.println("finally");
         }
         System.out.println("Программа продолжает выполняться");
-
+*/
 
 
         try {
@@ -36,6 +37,8 @@ public class Main {
             double rez = test2(5, 0);
         }catch (FiveException e){
             System.out.println("5 запрещено");
+        }catch (ArithmeticException e){
+            System.out.println("Oшибка формата");
         }
 
 
@@ -46,7 +49,7 @@ public class Main {
         return a/b;
     }
 
-    public static double test2(int a, int b)throws FiveException{
+    public static double test2(int a, int b)throws FiveException, ArithmeticException{
        if (b == 5){
            throw new FiveException();
        }
