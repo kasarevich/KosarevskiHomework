@@ -17,10 +17,14 @@ public class Main {
                     break;
                 }
                 case 2:{
-                    for (int i = 0; i < students.size(); i++){
-                       Manager.print(students.get(i), i);
-                    }
+                       Manager.print(students);
+                       break;
+
                 }
+                case 3:{
+                    Manager.search(students);
+                    break;
+                    }
             }
 
         }while(f == 0);

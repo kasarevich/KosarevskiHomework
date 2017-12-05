@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class Main {
     public static void main(String []arg) {
-/*
         try {
             // блок catch выполнится тогда, когда произойдет проблема
             SimpleDateFormat sdf = new SimpleDateFormat("");
@@ -23,7 +22,6 @@ public class Main {
             System.out.println("finally");
         }
         System.out.println("Программа продолжает выполняться");
-*/
 
 
         try {
