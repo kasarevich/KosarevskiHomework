@@ -35,5 +35,4 @@ public class Calculate {
         return num1 / num2;
     }
 
-
 }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Manager {
 
-    static public void input(File file)throws IOException {
+    static public void input(File file, boolean apend)throws Exception {
         FileWriter fw = new FileWriter(file);
         int i = 0;
         Scanner sc = new Scanner(System.in);
@@ -26,11 +26,12 @@ public class Manager {
         System.out.println("Добавить еще?");
         i = sc.nextInt();
         }
+        fw.flush();
         fw.close();
     }
 
 
-    private static void read(File file, ArrayList<Student> s)throws IOException{
+    public static void read(File file, ArrayList<Student> s)throws Exception{
         FileReader fr = new FileReader(file);
         Scanner scan = new Scanner(fr);
         while(scan.hasNextLine()){
@@ -43,21 +44,10 @@ public class Manager {
     }
 
 
-    public static void printFile(ArrayList<Student> s)throws IOException{ //Выводит на экран всех студентов
-        File file = new File("Students.txt");
-        if (file.length() !=0){
-                read(file, s);
-        }
-/*        else {
-            System.out.println("База пуста. Введите данные нового студента");
-            input(file);
-        }*/
-
-    }
-
     public static void showArray(ArrayList<Student> s){ //Выводит на экран всех студентов
         for (int i = 0; i < s.size(); i++) {
-            System.out.println(i + ". Имя: " + s.get(i).getName() + "\nФамилия: " + s.get(i).getSurname() +"\nНомер зачетки: " + s.get(i).getId());
+            System.out.println(i+1 + ".\tИмя: " + s.get(i).getName() + "\n\tФамилия: " + s.get(i).getSurname() +"\n\tНомер зачетки: " + s.get(i).getId());
+            System.out.println("    ---------------------");
         }
     }
 
