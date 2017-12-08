@@ -22,8 +22,6 @@ public class Main {
             Scanner in = new Scanner(System.in);
             i = in.nextInt();
         }
-
-
     }
 
     private static double input()throws IOException, InputMismatchException   { // Вместо запятой могут ввести точку, поэтому проверка на InputMismatchException
@@ -52,19 +50,23 @@ public class Main {
         double rez = 0;
         switch (flag){
             case 1:{
-                rez = Operations.plus(num1, num2);
+                rez = num1 + num2;
                 break;
             }
             case 2:{
-                rez = Operations.minus(num1, num2);
+                rez = num1 - num2;
                 break;
             }
             case 3:{
-                rez = Operations.multiplication(num1, num2);
+                rez = num1 * num2;
                 break;
             }
             case 4:{
-                    rez = Operations.dividing(num1, num2);
+                try {
+                    rez = num1 / num2;
+                }catch (ArithmeticException e){
+                    System.out.println(e.toString());
+                }
                 break;
             }
             default:{
