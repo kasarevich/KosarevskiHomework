@@ -18,7 +18,6 @@ public class Calculate {
     }
 
 
-
     public double plus(){
         return num1 + num2;
     }
@@ -31,7 +30,9 @@ public class Calculate {
         return num1 * num2;
     }
 
-    public double deviding(){
+    public double deviding()throws DevideByZeroException{
+        if (num2 == 0)
+            throw new DevideByZeroException("Вы пытаетесь разделить на ноль!");
         return num1 / num2;
     }
 

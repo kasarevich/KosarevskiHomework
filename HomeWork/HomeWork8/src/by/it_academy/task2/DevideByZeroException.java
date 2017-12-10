@@ -1,11 +1,8 @@
 package by.it_academy.task2;
 
-import java.io.IOException;
-import java.util.InputMismatchException;
-
-public class ScannerException extends InputMismatchException {
+public class DevideByZeroException extends Exception {
     String russianMessage;
-    public ScannerException(String message) {
+    public DevideByZeroException (String message) {
         this.russianMessage = message;
     }
 
