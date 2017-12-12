@@ -26,6 +26,5 @@ public class Main {
             strings.set(i, strings.get(i).replaceAll("[aа]", ""));
         }
         System.out.println(strings.toString());
-
     }
 }
