@@ -2,9 +2,6 @@ package by.it_academy.task2;
 
 import by.it_academy.task2.Exceptions.IlluminanceToMuchException;
 import by.it_academy.task2.Exceptions.SpaceUsageTooMuchException;
-import by.it_academy.task2.Illumination.Illumination;
-import by.it_academy.task2.Illumination.Lamp;
-import by.it_academy.task2.Illumination.Window;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +15,13 @@ public class Room {
     private LinkedList<Lamp> lamps = new LinkedList<>();
     private LinkedList<Furniture> furnitureList = new LinkedList<>();
 
+    /**
+     * В конструкторе проверяем не слишком ли много окон добавлено по дефолту.
+     * @param name
+     * @param square
+     * @param countOfWindows
+     * @throws IlluminanceToMuchException
+     */
     public Room(String name, double square , int countOfWindows)throws IlluminanceToMuchException {
         this.name = name;
         this.square = square;
@@ -57,6 +61,11 @@ public class Room {
         return furnitureList;
     }
 
+    /**
+     * В сетер подаем готовый объект лампы.Проверяем яркость и если все ок, перезаписываем лампу в лист ламп
+     * @param lamp
+     * @throws IlluminanceToMuchException
+     */
     public void setIlluminations(Lamp lamp) throws IlluminanceToMuchException {
         if(lamp.getIlluminance() < 4000) {
             this.lamps.add(new Lamp(lamp.getName(), lamp.getIlluminance()));
@@ -73,6 +82,9 @@ public class Room {
         else throw new SpaceUsageTooMuchException("Объект занимает слишком много места!");
     }
 
+    /**
+     * Методы для реализации вывода
+     */
     public void illumInfo(){
         for(Lamp i : lamps){
             System.out.print(", " + i.getIlluminance() + " лк");

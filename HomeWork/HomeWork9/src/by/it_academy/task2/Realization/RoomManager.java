@@ -5,7 +5,7 @@ import by.it_academy.task2.Exceptions.IlluminanceToLittleException;
 import by.it_academy.task2.Exceptions.IlluminanceToMuchException;
 import by.it_academy.task2.Exceptions.SpaceUsageTooMuchException;
 import by.it_academy.task2.Furniture;
-import by.it_academy.task2.Illumination.Lamp;
+import by.it_academy.task2.Lamp;
 import by.it_academy.task2.Room;
 
 import java.io.BufferedReader;

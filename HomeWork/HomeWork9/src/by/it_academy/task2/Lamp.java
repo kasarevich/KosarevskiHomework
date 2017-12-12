@@ -1,10 +1,10 @@
-package by.it_academy.task2.Illumination;
+package by.it_academy.task2;
 
-public class Illumination {
+public class Lamp {
     private String name;
     private int illuminance;
 
-    public Illumination(String name, int illuminance) {
+    public Lamp(String name, int illuminance) {
         this.name = name;
         this.illuminance = illuminance;
     }
