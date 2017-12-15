@@ -126,7 +126,7 @@ public class Main {
                 continue;
             }
            Element element = (Element)node;
-            //вытягиваем нэйм
+            //вытягиваем остальные поля.
 
             String name = element.getElementsByTagName("name").item(0).getTextContent();
             System.out.println(name);
@@ -138,6 +138,9 @@ public class Main {
             System.out.println(age);
             boolean isDegree = Boolean.valueOf(element.getElementsByTagName("isDegree").item(0).getTextContent());
             System.out.println(isDegree);
+
+            // Создаем объект, аполняем поля
+
             People people1 = new People();
             people1.setName(name);
             people1.setSurname(surname);
@@ -148,6 +151,9 @@ public class Main {
             peoples.add(people1);
         }
             root.setPeople(peoples);
+        // Вывод на экран всего объекта
+        System.out.println("+++++++++++++++++++++++++++++++++");
+        System.out.println("root = " + root.toString());
     }
 
 }
