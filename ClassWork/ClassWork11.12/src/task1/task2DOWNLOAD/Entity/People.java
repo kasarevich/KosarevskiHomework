@@ -1,9 +1,17 @@
 package task1.task2DOWNLOAD.Entity;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 public class People {
 
     private int id;
+
+    @SerializedName("name") // Аннотация для Gson в случаях если имя в json-файле не соответвтвует тому имени, котрое мы хотим
+    // теперь можно в классе поменять имя на firstname. Он будет брать из json name и запишет в firstname
     private String name;
+
     private String surname;
     private int age;
     private boolean isDegree;
@@ -71,6 +79,8 @@ public class People {
         result = 31 * result + (isDegree() ? 1 : 0);
         return result;
     }
+
+
 
     @Override
     public String toString() {

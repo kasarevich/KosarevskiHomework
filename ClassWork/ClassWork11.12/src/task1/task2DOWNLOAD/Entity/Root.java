@@ -1,10 +1,14 @@
 package task1.task2DOWNLOAD.Entity;
 
+import java.util.Date;
 import java.util.List;
 
 public class Root {
     private String name;
     private List<People> people;
+    private Gender gender;
+    private Date date;
+
 
     public String getName() {
         return name;
@@ -45,6 +49,8 @@ public class Root {
         return "Root{" +
                 "name='" + name + '\'' +
                 ", people=" + people +
+                ", gender=" + gender +
+                ", date=" + date +
                 '}';
     }
 }

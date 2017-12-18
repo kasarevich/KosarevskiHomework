@@ -1,25 +1,30 @@
 package task1.task2DOWNLOAD;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import task1.task2DOWNLOAD.Entity.DateGsonConverter;
 import task1.task2DOWNLOAD.Entity.People;
 import task1.task2DOWNLOAD.Entity.Root;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
-    private static final String LINK = "http://kiparo.ru/t/test.xml";
+    private static final String LINK = "http://kiparo.ru/t/test.json";
     public static void main(String [] args){
 
         InputStream inputStream = null;
@@ -34,7 +39,7 @@ public class Main {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
-                File file = new File("test.xml");
+                File file = new File("test.json");
                 fileOutputStream = new FileOutputStream(file);
 
                 int byteRead = -1; // к-во полезных байт в буффере. он может не весь заполняться
@@ -42,8 +47,9 @@ public class Main {
                 while ((byteRead = inputStream.read(buffer))!=-1){
                     fileOutputStream.write(buffer, 0, byteRead);
                 }
-
-                parseXml();
+                //parseXml();
+                //parseJson();
+                parseGson();
 
             }else{
                 System.out.println("Данные не найдены, responseCode = " + responseCode);
@@ -156,4 +162,99 @@ public class Main {
         System.out.println("root = " + root.toString());
     }
 
+
+
+
+
+
+    public static void parseJson(){
+
+       JSONParser parser = new JSONParser();
+       FileReader fileReader = null;
+       try{
+           Root rootModel = new Root();
+
+           fileReader = new FileReader("test.json");
+           JSONObject root = (JSONObject)parser.parse(fileReader);
+           String name = (String)root.get("name");
+           System.out.println("name = " + name);
+
+           JSONArray peoples = (JSONArray)root.get("people");
+           List<People> peoplelist = new ArrayList<>();
+
+
+           for (Object element: peoples){
+               People peopleModel = new People();
+               JSONObject people = (JSONObject)element;
+
+               long id = (Long) people.get("id");
+               System.out.println("id = "+id);
+               peopleModel.setId((int)id);
+
+               String nameOfP = (String)people.get("name");
+               System.out.println("nameOfP = " + nameOfP);
+               peopleModel.setName(nameOfP);
+
+               String surname = (String)people.get("surname");
+               System.out.println("surname = " + surname);
+               peopleModel.setSurname(surname);
+
+               long age = (Long) people.get("age");
+               System.out.println("age = "+age);
+               peopleModel.setAge((int)age);
+
+               boolean isDegree = (boolean) people.get("isDegree");
+               System.out.println("isDegree = "+isDegree);
+               peopleModel.setDegree(isDegree);
+
+               peoplelist.add(peopleModel);
+
+               System.out.println("______________");
+           }
+
+           rootModel.setPeople(peoplelist);
+           System.out.println(rootModel.toString());
+
+       }catch (Exception e){
+           System.out.println(e.toString());
+       }
+       finally {
+           if(fileReader!= null){
+               try{
+                   fileReader.close();
+               }catch (Exception e){
+                   System.out.println(e.getMessage());
+               }
+           }
+       }
+    }
+
+
+
+
+    private static void parseGson(){
+
+        try{
+
+            BufferedReader bufferedReader =
+            new BufferedReader(new FileReader("test.json"));
+
+            GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new DateGsonConverter());
+            Gson gson = builder.create(); // -  для парсинга своих дат добавятся эти 2 строки
+
+            Root root = gson.fromJson(bufferedReader, Root.class);
+            System.out.println(root.toString());
+
+
+
+
+
+// см Гендер и класс Пипл(Здесь енам не реализован, но там заккоментировано как переопределить переменные, кот. не совпадают)
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+
+
+
+    }
 }
