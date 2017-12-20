@@ -21,5 +21,13 @@ public class Root {
     public void setPeoples(List<People> peoples) {
         this.peoples = peoples;
     }
+    public void showAll(){
+        System.out.println("Имя файла: " + name);
+        System.out.println("|\tID\t|\tИмя\t|\tФамилия\t|\t\tВозраст\t|\tСтатус\t|");
+        for(People p : peoples){
+            System.out.println("_____________________________________________________________");
+            System.out.println("|\t" + p.getId() + "\t|\t" + p.getName() + "\t|\t" + p.getSurname() + "\t|\t\t" + p.getAge() + "\t\t|\t" + p.isDegree() +"\t| ");
+        }
+    }
 
 }
