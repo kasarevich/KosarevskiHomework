@@ -12,7 +12,7 @@ public class URLConnector {
     public static String connect(String LINK) {
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;
-        String nameOfFile = new String("hw11.json");
+        String nameOfFile = new String("hw12.json");
         try {
 
             URL url = new URL(LINK);
