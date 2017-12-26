@@ -17,11 +17,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         File file = new File(URLConnector.connect(LINK));
         ObjectMapper mapper = new ObjectMapper();
-
         Root root = mapper.readValue(file, Root.class);
-        String format = "yyyy-MM-dd";
-
-        System.out.println(root.toString(format));
+        System.out.println(root.toString());
     }
 
 }

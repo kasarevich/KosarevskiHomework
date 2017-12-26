@@ -68,14 +68,14 @@ public class Root {
         return result;
     }
 
-
-    public String toString(String pattern) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        return "Root{" +
+@Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "Root{\n" +
                 "name='" + name + '\'' +
-                ", gender=" + gender +
-                ", date=" + sdf.format(date) +
-                ", people=" + peoples +
+                ",\n gender=" + gender +
+                ",\n date=" + sdf.format(date) +
+                ",\n people=" + peoples +
                 '}';
     }
 }
