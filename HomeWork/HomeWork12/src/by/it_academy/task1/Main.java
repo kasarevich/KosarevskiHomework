@@ -20,5 +20,4 @@ public class Main {
         Root root = mapper.readValue(file, Root.class);
         System.out.println(root.toString());
     }
-
 }
