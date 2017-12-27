@@ -1,0 +1,42 @@
+{
+  "name" : "Test file task2",
+  "gender" : "0",
+  "date" : "2016-12-18",
+  "peoples" : [ {
+    "id" : 0,
+    "name" : "Ivan",
+    "surname" : "Ivanov",
+    "age" : 12,
+    "degree" : true
+  }, {
+    "id" : 1,
+    "name" : "Sergey",
+    "surname" : "Petrov",
+    "age" : 20,
+    "degree" : false
+  }, {
+    "id" : 2,
+    "name" : "Alexey",
+    "surname" : "Sidorov",
+    "age" : 42,
+    "degree" : true
+  }, {
+    "id" : 3,
+    "name" : "Michael",
+    "surname" : "Jackson",
+    "age" : 34,
+    "degree" : true
+  }, {
+    "id" : 4,
+    "name" : "Alex",
+    "surname" : "Lukashenko",
+    "age" : 235,
+    "degree" : true
+  }, {
+    "id" : 0,
+    "name" : "Maksim",
+    "surname" : "Galkin",
+    "age" : 21,
+    "degree" : true
+  } ]
+}
