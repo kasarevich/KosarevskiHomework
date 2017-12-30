@@ -9,10 +9,10 @@ import java.io.InputStreamReader;
 
 public class UIImplement implements UI{
     ManagerImplement mi = new ManagerImplement();
+    UI ui = new UIImplement();
     Format format;
 
     public void download(){
-        UI ui = new UIImplement();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Для скачивания XML файла нажмите \"0\", для скачивания JSON файла нажмите \"1\":");
 
@@ -31,10 +31,15 @@ public class UIImplement implements UI{
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
+
     }
     public void parseFile(){
         System.out.println("Парсинг " + format.name() + " файла");
-
+        if(format == Format.XML){
+            mi.parseXML(ui);
+        } else {
+            mi.parseJSON(ui);
+        }
     }
 
     @Override

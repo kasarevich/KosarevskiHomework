@@ -1,5 +1,6 @@
 package by.it_academy.Manager;
 
+import by.it_academy.Entity.Station;
 import by.it_academy.Interfaces.Manager;
 import by.it_academy.Interfaces.UI;
 import by.it_academy.Interfaces.URLConnection;
@@ -11,6 +12,7 @@ import java.nio.charset.MalformedInputException;
 public class ManagerImplement implements Manager{
     String nameOfFile;
     String link;
+    Station station;
 
     public void setNameOfFile(String nameOfFile) {
         this.nameOfFile = nameOfFile;
@@ -35,13 +37,13 @@ public class ManagerImplement implements Manager{
         }
     }
     @Override
-    public void parseXML(UI ui){
-
+    public Station parseXML(UI ui){
+    return null;
     }
 
     @Override
-    public void parseJSON(UI ui){
-
+    public Station parseJSON(UI ui){
+        return null;
     }
 
 
