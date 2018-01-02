@@ -1,5 +1,7 @@
 package by.it_academy.Interfaces;
 
 public interface UI {
-   public void print(String mesage);
+    public void download();
+    public void parseFile();
+    public void print(String mesage);
 }

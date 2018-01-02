@@ -27,7 +27,7 @@ public class ManagerImplement implements Manager{
         URLConnection url = new URLConnector(nameOfFile);
         try {
             url.downloadFile(link);
-            ui.print("Файл успешно скачан! Имя файла: " + nameOfFile);
+            ui.print("Файл успешно скачан! Название файла: " + nameOfFile);
         }catch (MalformedInputException e){
             ui.print(e.getMessage());
         }catch (IOException e){
@@ -37,13 +37,15 @@ public class ManagerImplement implements Manager{
         }
     }
     @Override
-    public Station parseXML(UI ui){
-    return null;
+    public void parseXML(UI ui){
+
+
     }
 
     @Override
-    public Station parseJSON(UI ui){
-        return null;
+    public void parseJSON(UI ui){
+
+
     }
 
 
