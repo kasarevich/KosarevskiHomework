@@ -1,4 +1,6 @@
-package by.it_academy.entity;
+package by.it_academy.domain.entity;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
@@ -8,7 +10,9 @@ public class Customer {
     private String name;
     private Date lastOrder;
     private Date dateOfBirth;
-    private List<Car> cars;
+    @SerializedName("car")
+    private List<String> cars;
+    @SerializedName("discount")
     private boolean isDiscount;
 
     public void setId(int id) {
@@ -27,7 +31,7 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setCars(List<Car> cars) {
+    public void setCars(List<String> cars) {
         this.cars = cars;
     }
 

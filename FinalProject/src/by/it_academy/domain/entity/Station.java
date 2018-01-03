@@ -1,4 +1,4 @@
-package by.it_academy.entity;
+package by.it_academy.domain.entity;
 
 import java.util.List;
 

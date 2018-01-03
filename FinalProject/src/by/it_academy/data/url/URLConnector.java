@@ -1,6 +1,6 @@
-package by.it_academy.url;
+package by.it_academy.data.url;
 
-import by.it_academy.interfaces.URLConnection;
+import by.it_academy.domain.interfaces.URLConnection;
 
 import java.io.File;
 import java.io.FileOutputStream;

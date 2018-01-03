@@ -1,4 +1,4 @@
-package by.it_academy.interfaces;
+package by.it_academy.domain.interfaces;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

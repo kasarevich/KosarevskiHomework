@@ -1,9 +1,8 @@
-package by.it_academy.parsers;
+package by.it_academy.data.parsers;
 
-import by.it_academy.entity.Car;
-import by.it_academy.entity.Customer;
-import by.it_academy.entity.Station;
-import by.it_academy.interfaces.Parser;
+import by.it_academy.domain.entity.Customer;
+import by.it_academy.domain.entity.Station;
+import by.it_academy.domain.interfaces.Parser;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,7 +12,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +26,6 @@ public class XMLParser implements Parser  {
     public Station parse(String nameOfFile) throws ParserConfigurationException, IOException,
             ParseException, Exception{
         Station station = new Station();
-        station = null;
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
@@ -66,16 +63,14 @@ public class XMLParser implements Parser  {
             Date dateOfBirth = sdf.parse(birthday);
 
             NodeList carNodeList = element.getElementsByTagName("car");
-            List<Car> cars = new ArrayList<>();
+            List<String> cars = new ArrayList<>();
             for(int j=0; j< carNodeList.getLength(); j++){
 
                 Node carNode = carNodeList.item(j);
                 if (carNode.getNodeType() != Node.ELEMENT_NODE) {
                     continue;
                 }
-                String carName = carNode.getTextContent();
-                Car car = new Car();
-                car.setName(carName);
+                String car = carNode.getTextContent();
                 cars.add(car);
             }
 
