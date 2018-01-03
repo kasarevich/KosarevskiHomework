@@ -1,7 +1,7 @@
-package by.it_academy.Parsers;
+package by.it_academy.parsers;
 
-import by.it_academy.Entity.Station;
-import by.it_academy.Interfaces.Parser;
+import by.it_academy.entity.Station;
+import by.it_academy.interfaces.Parser;
 
 public class JSONParser implements Parser{
     @Override

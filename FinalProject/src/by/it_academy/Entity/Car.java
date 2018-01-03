@@ -1,4 +1,4 @@
-package by.it_academy.Entity;
+package by.it_academy.entity;
 
 public class Car {
     private String name;

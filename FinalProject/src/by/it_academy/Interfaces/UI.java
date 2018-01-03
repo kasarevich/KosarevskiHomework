@@ -1,4 +1,4 @@
-package by.it_academy.Interfaces;
+package by.it_academy.interfaces;
 
 public interface UI {
     public void download();

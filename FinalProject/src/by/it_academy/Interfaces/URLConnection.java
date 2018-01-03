@@ -1,7 +1,6 @@
-package by.it_academy.Interfaces;
+package by.it_academy.interfaces;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
 public interface URLConnection {

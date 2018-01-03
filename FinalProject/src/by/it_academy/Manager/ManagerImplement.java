@@ -1,13 +1,18 @@
-package by.it_academy.Manager;
+package by.it_academy.manager;
 
-import by.it_academy.Entity.Station;
-import by.it_academy.Interfaces.Manager;
-import by.it_academy.Interfaces.UI;
-import by.it_academy.Interfaces.URLConnection;
-import by.it_academy.URL.URLConnector;
+import by.it_academy.entity.Station;
+import by.it_academy.interfaces.Manager;
+import by.it_academy.interfaces.Parser;
+import by.it_academy.interfaces.UI;
+import by.it_academy.interfaces.URLConnection;
+import by.it_academy.parsers.XMLParser;
+import by.it_academy.url.URLConnector;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.charset.MalformedInputException;
+import java.text.ParseException;
 
 public class ManagerImplement implements Manager{
     String nameOfFile;
@@ -37,15 +42,29 @@ public class ManagerImplement implements Manager{
         }
     }
     @Override
-    public void parseXML(UI ui){
+    public Station parseXML(UI ui){
+        Station st = new Station();
+    try {
+        Parser parser = new XMLParser();
+        st = parser.parse(nameOfFile);
 
-
+    }catch (ParserConfigurationException e){
+        ui.print(e.getMessage());
+    }catch (ParseException e){
+        ui.print(e.getMessage());
+    }catch (IOException e){
+        ui.print(e.getMessage());
+    }catch (Exception e){
+        ui.print(e.getMessage());
+    }
+    return st;
     }
 
     @Override
-    public void parseJSON(UI ui){
+    public Station parseJSON(UI ui){
 
 
+        return null;
     }
 
 

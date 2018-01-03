@@ -1,4 +1,4 @@
-package by.it_academy.Manager;
+package by.it_academy.manager;
 
 public enum Format {
     XML,

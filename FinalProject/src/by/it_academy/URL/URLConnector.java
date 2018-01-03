@@ -1,13 +1,12 @@
-package by.it_academy.URL;
+package by.it_academy.url;
 
-import by.it_academy.Interfaces.URLConnection;
+import by.it_academy.interfaces.URLConnection;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.MalformedInputException;
 

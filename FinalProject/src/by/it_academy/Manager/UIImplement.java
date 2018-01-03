@@ -1,8 +1,7 @@
-package by.it_academy.Manager;
+package by.it_academy.manager;
 
-import by.it_academy.Interfaces.Manager;
-import by.it_academy.Interfaces.UI;
-
+import by.it_academy.entity.Station;
+import by.it_academy.interfaces.UI;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +10,7 @@ public class UIImplement implements UI{
     ManagerImplement mi = new ManagerImplement();
     UI ui = new UIImplement();
     Format format;
+    Station station = new Station();
 
     @Override
     public void download(){
@@ -38,9 +38,9 @@ public class UIImplement implements UI{
     public void parseFile(){
         System.out.println("Парсинг " + format.name() + " файла");
         if(format == Format.XML){
-            mi.parseXML(ui);
+            station = mi.parseXML(ui);
         } else {
-            mi.parseJSON(ui);
+            station = mi.parseJSON(ui);
         }
     }
 

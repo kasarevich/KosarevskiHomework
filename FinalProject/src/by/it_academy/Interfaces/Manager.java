@@ -1,9 +1,9 @@
-package by.it_academy.Interfaces;
+package by.it_academy.interfaces;
 
-import by.it_academy.Entity.Station;
+import by.it_academy.entity.Station;
 
 public interface Manager {
     public void connect(UI ui);
-    public void parseXML(UI ui);
-    public void parseJSON(UI ui);
+    public Station parseXML(UI ui);
+    public Station parseJSON(UI ui);
 }
