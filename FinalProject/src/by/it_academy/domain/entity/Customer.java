@@ -15,6 +15,30 @@ public class Customer {
     @SerializedName("discount")
     private boolean isDiscount;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getLastOrder() {
+        return lastOrder;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public List<String> getCars() {
+        return cars;
+    }
+
+    public boolean isDiscount() {
+        return isDiscount;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

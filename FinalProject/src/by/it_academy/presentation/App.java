@@ -7,7 +7,6 @@ public class App {
 UI ui = new UIImplement();
 ui.download(ui);
 ui.parseFile(ui);
-
-
+ui.mainMenu(ui);
     }
 }
