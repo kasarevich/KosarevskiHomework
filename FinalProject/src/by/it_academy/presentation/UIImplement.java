@@ -15,11 +15,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UIImplement implements UI{
+    private static UIImplement instance = new UIImplement();
     ManagerImplement mi = new ManagerImplement();
     Format format;
 
+
+    public static UIImplement getInstance(){
+        if (instance == null){
+            instance = new UIImplement();
+        }
+        return instance;
+    }
+
     @Override
-    public void download(UI ui){
+    public void download(){
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Для скачивания XML файла нажмите \"0\", для скачивания JSON файла нажмите \"1\":");
         try {
@@ -28,13 +37,13 @@ public class UIImplement implements UI{
                 format = Format.XML;
                 mi.setLink("http://kiparo.ru/t/service_station.xml");
                 mi.setNameOfFile("customers.xml");
-                mi.connect(ui);
+                mi.connect();
             }
             if (choice == 1){
                 format = Format.JSON;
                 mi.setLink("http://kiparo.ru/t/service_station.json");
                 mi.setNameOfFile("customers.json");
-                mi.connect(ui);
+                mi.connect();
             }
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -44,7 +53,7 @@ public class UIImplement implements UI{
     }
 
     @Override
-    public void parseFile(UI ui){
+    public void parseFile(){
         System.out.println("Парсинг " + format.name() + " файла...");
         if(format == Format.XML){
             mi.parseXML(ui);

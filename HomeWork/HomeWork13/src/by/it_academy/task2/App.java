@@ -5,13 +5,19 @@ import java.util.regex.Pattern;
 
 public class App {
     public static void main(String[]args){
-getFormat("jgkhg.xml");
-    }
-    public static String getFormat(String name){
-        Pattern p = Pattern.compile(".+\\.(xml|json|doc|jar|html)&");
-        Matcher m = p.matcher(name);
-        System.out.println(p);
+            String str[] =  new String[]{"ygigkuih/jhgk/uyyuj.hvfhjbevh.xml", "dghsgdj.asda.doc" , "ahfk@doctor", "students.json"};
+            for (String string: str){
+                printFormat(string);
+            }
+        }
 
-        return null;
+    public static void printFormat(String str) {
+        Pattern pattern = Pattern.compile("\\.[\\w]+$");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            String format = matcher.group().substring(1);
+            System.out.println(format);
+        }
+        else System.out.println("Формат неизвестен!");
     }
 }

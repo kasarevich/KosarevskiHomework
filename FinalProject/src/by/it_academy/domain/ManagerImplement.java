@@ -170,17 +170,29 @@ public class ManagerImplement implements Manager{
 
     @Override
     public void searchCustomerByLastOrder(UI ui){
-        final long SIXMONTH = 15778800000L;
         Calendar today = new GregorianCalendar().getInstance();
+        int todayMonth = today.get(Calendar.MONTH) + 1;
+        int todayYear = today.get(Calendar.YEAR);
         Calendar lastOrder = new GregorianCalendar();
-        long diff;
+        int diff;
         int counter = 0;
         for (Customer customer : st.getCustomers()){
             lastOrder.setTime(customer.getLastOrder());
-                diff = today.getTimeInMillis() - lastOrder.getTimeInMillis();
-                if (diff > SIXMONTH) {
+                int orderMonth = lastOrder.get(Calendar.MONTH)+1;
+                int orderYear = lastOrder.get(Calendar.YEAR);
+                if(todayYear - orderYear > 1){
                     ui.print(printCustomer(customer.getId()));
                     counter++;
+                    continue;
+                }
+                diff = todayMonth - orderMonth;
+                if(diff < 0){
+                    todayMonth += 12;
+                    diff = todayMonth - orderMonth;
+                    }
+                    if(diff > 6){
+                        ui.print(printCustomer(customer.getId()));
+                        counter++;
                 }
         }
         if (counter == 0){
