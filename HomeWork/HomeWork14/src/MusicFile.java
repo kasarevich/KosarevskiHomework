@@ -50,10 +50,6 @@ public class MusicFile {
 
     @Override
     public String toString() {
-        return "MusicFile{" +
-                "nameOfTrack='" + nameOfTrack + '\'' +
-                ", length=" + length +
-                ", path='" + path + '\'' +
-                '}';
+        return "\tНазвание: " + nameOfTrack + " Длительность: " + length + " c. " + " Расположение: " + path;
     }
 }

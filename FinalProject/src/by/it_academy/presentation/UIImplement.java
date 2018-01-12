@@ -1,6 +1,5 @@
 package by.it_academy.presentation;
 
-import by.it_academy.domain.entity.Station;
 import by.it_academy.domain.interfaces.UI;
 import by.it_academy.domain.Format;
 import by.it_academy.domain.ManagerImplement;
@@ -8,9 +7,6 @@ import by.it_academy.domain.ManagerImplement;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,15 +52,15 @@ public class UIImplement implements UI{
     public void parseFile(){
         System.out.println("Парсинг " + format.name() + " файла...");
         if(format == Format.XML){
-            mi.parseXML(ui);
+            mi.parseXML();
         } else {
-            mi.parseJSON(ui);
+            mi.parseJSON();
         }
         System.out.println("Парсинг " + format.name() + " файла прошел успешно!");
     }
 
     @Override
-    public void mainMenu(UI ui){
+    public void mainMenu(){
         boolean flag = true;
         while (flag) {
             System.out.println("\tВведите:" +
@@ -79,28 +75,28 @@ public class UIImplement implements UI{
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                 i = Integer.parseInt(reader.readLine());
             } catch (IOException e) {
-                ui.print(e.getMessage());
+                print(e.getMessage());
             }
 
             switch (i) {
                 case 1: {
-                    printAllCustomers(ui);
+                    printAllCustomers();
                     break;
                 }
                 case 2: {
-                    searchByCar(ui);
+                    searchByCar();
                     break;
                 }
                 case 3: {
-                    searchByName(ui);
+                    searchByName();
                     break;
                 }
                 case 4: {
-                    searchByBirthday(ui);
+                    searchByBirthday();
                     break;
                 }
                 case 5: {
-                    searchByLastOrder(ui);
+                    searchByLastOrder();
                     break;
                 }
                 case 0: {
@@ -117,10 +113,10 @@ public class UIImplement implements UI{
     }
 
     @Override
-    public void printAllCustomers(UI ui){
+    public void printAllCustomers(){
         System.out.println("Вывод на экран всей информаци о станции:");
         printTable();
-        mi.showAll(ui);
+        mi.showAll();
     }
     public  void printTable(){
         System.out.println((char) 27 +"[33m[id, Имя клиента, Дата рождения, Последний визит, Скидка, Список автомобилей ]"+ (char)27 + "[0m");
@@ -133,19 +129,19 @@ public class UIImplement implements UI{
     }
 
     @Override
-    public void searchByCar(UI ui){
+    public void searchByCar(){
     System.out.println("\t\tВведите марку машины:");
     String carName = null;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             carName = reader.readLine();
         } catch (IOException e) {
-            ui.print(e.getMessage());
+            print(e.getMessage());
         }
         Pattern p = Pattern.compile("^[A-za-z0-9]+\\s*[A-za-z0-9]*$"); // Только латинские буквы любого регистра, либо цифры, может быть пробел
         Matcher m = p.matcher(carName);                                // после которого может быть строка или цифра
         if(carName!=null & m.matches()) {
-            mi.searchCustomerByCar(ui, carName);
+            mi.searchCustomerByCar(carName);
         }else{
             System.out.println("Неверный ввод!");
         }
@@ -153,31 +149,31 @@ public class UIImplement implements UI{
 
 
     @Override
-    public void searchByName(UI ui){
+    public void searchByName(){
         System.out.println("\t\tВведите имя или фамилию клиента:");
         String name = null;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             name = reader.readLine();
         } catch (IOException e) {
-            ui.print(e.getMessage());
+            print(e.getMessage());
         }
         Pattern p = Pattern.compile("^[A-za-z]+\\s*[A-za-z]*$"); // Только латинские буквы любого регистра, может быть пробел
         Matcher m = p.matcher(name);                                // после которого может быть строка
         if(name!=null & m.matches()) {
-            mi.searchCustomerByName(ui, name);
+            mi.searchCustomerByName(name);
         }else{
             System.out.println("Неверный ввод!");
         }
     }
 
     @Override
-    public void searchByBirthday(UI ui){
-        mi.searchCustomerByBirthday(ui);
+    public void searchByBirthday(){
+        mi.searchCustomerByBirthday();
     }
 
     @Override
-    public void searchByLastOrder(UI ui){
-    mi.searchCustomerByLastOrder(ui);
+    public void searchByLastOrder(){
+    mi.searchCustomerByLastOrder();
     }
 }

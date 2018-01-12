@@ -5,10 +5,10 @@ import by.it_academy.domain.entity.Customer;
 import by.it_academy.domain.entity.Station;
 import by.it_academy.domain.interfaces.Manager;
 import by.it_academy.domain.interfaces.Parser;
-import by.it_academy.domain.interfaces.UI;
 import by.it_academy.domain.interfaces.URLConnection;
 import by.it_academy.data.parsers.XMLParser;
 import by.it_academy.data.url.URLConnector;
+import by.it_academy.presentation.UIImplement;
 
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,61 +35,61 @@ public class ManagerImplement implements Manager{
     }
 
     @Override
-    public void connect(UI ui){
+    public void connect(){
         URLConnection url = new URLConnector(nameOfFile);
         try {
             url.downloadFile(link);
-            ui.print("Файл успешно скачан! Название файла: " + nameOfFile);
+            UIImplement.getInstance().print("Файл успешно скачан! Название файла: " + nameOfFile);
         }catch (MalformedInputException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (IOException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (Exception e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }
     }
     @Override
-    public void parseXML(UI ui){
+    public void parseXML(){
     try {
         Parser parser = new XMLParser();
         st = parser.parse(nameOfFile);
     }catch (ParserConfigurationException e){
-        ui.print(e.getMessage());
+        UIImplement.getInstance().print(e.getMessage());
     }catch (ParseException e){
-        ui.print(e.getMessage());
+        UIImplement.getInstance().print(e.getMessage());
     }catch (FileNotFoundException e){
-        ui.print(e.getMessage());
+        UIImplement.getInstance().print(e.getMessage());
     }catch (IOException e){
-        ui.print(e.getMessage());
+        UIImplement.getInstance().print(e.getMessage());
     }catch (Exception e){
-        ui.print(e.getMessage());
+        UIImplement.getInstance().print(e.getMessage());
     }
     }
 
     @Override
-    public void parseJSON(UI ui){
+    public void parseJSON(){
         try {
             Parser parser = new JSONParser();
             st = parser.parse(nameOfFile);
         }catch (ParserConfigurationException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (ParseException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (FileNotFoundException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (IOException e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }catch (Exception e){
-            ui.print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage());
         }
     }
 
     @Override
-    public void showAll(UI ui){
-        ui.print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода
-        ui.print("\t" + (char) 27 + "[36m" + st.getLocation()+ (char)27+ "[0m");
+    public void showAll(){
+        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода
+        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getLocation()+ (char)27+ "[0m");
         for (int i = 0; i < st.getCustomers().size(); i++){
-            ui.print(printCustomer(i));
+            UIImplement.getInstance().print(printCustomer(i));
             }
         }
 
@@ -120,38 +120,38 @@ public class ManagerImplement implements Manager{
     }
 
     @Override
-    public void searchCustomerByCar(UI ui, String carName){
+    public void searchCustomerByCar(String carName){
         Pattern pattern = Pattern.compile(carName.toLowerCase()); // для поиска без учета регистра
         int counter = 0;                                          // счетчик для вывода сообщения, если ничего не найдено
         for(Customer customer : st.getCustomers()){
             for(String car : customer.getCars()){
                 Matcher matcher = pattern.matcher(car.toLowerCase());
                 if (matcher.find()){
-                    ui.print(printCustomer(customer.getId()));
+                    UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter ++;
                 }
             }
         }
-        if(counter==0){ui.print("По заданным параметрам клиентов не найдено");}
+        if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
     }
 
 
     @Override
-    public void searchCustomerByName(UI ui, String name){
+    public void searchCustomerByName(String name){
         Pattern pattern = Pattern.compile(name.toLowerCase());
         int counter = 0;
         for(Customer customer : st.getCustomers()){
                 Matcher matcher = pattern.matcher(customer.getName().toLowerCase());
                 if (matcher.find()){
-                    ui.print(printCustomer(customer.getId()));
+                    UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter ++;
             }
         }
-        if(counter==0){ui.print("По заданным параметрам клиентов не найдено");}
+        if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
     }
 
     @Override
-    public void searchCustomerByBirthday(UI ui){
+    public void searchCustomerByBirthday(){
         Calendar calendar = new GregorianCalendar().getInstance();
         int todayMonth = calendar.get(Calendar.MONTH) + 1;
         int monthOfBirth = 13;
@@ -159,17 +159,17 @@ public class ManagerImplement implements Manager{
         for (Customer customer : st.getCustomers()){
              monthOfBirth = customer.getDateOfBirth().getMonth() + 1;
             if(monthOfBirth == todayMonth){
-                ui.print(printCustomer(customer.getId()));
+                UIImplement.getInstance().print(printCustomer(customer.getId()));
                 counter ++;
             }
         }
         if (counter == 0){
-            ui.print("В текущем месяце у клиентов нет Дней Рождения");
+            UIImplement.getInstance().print("В текущем месяце у клиентов нет Дней Рождения");
         }
     }
 
     @Override
-    public void searchCustomerByLastOrder(UI ui){
+    public void searchCustomerByLastOrder(){
         Calendar today = new GregorianCalendar().getInstance();
         int todayMonth = today.get(Calendar.MONTH) + 1;
         int todayYear = today.get(Calendar.YEAR);
@@ -181,7 +181,7 @@ public class ManagerImplement implements Manager{
                 int orderMonth = lastOrder.get(Calendar.MONTH)+1;
                 int orderYear = lastOrder.get(Calendar.YEAR);
                 if(todayYear - orderYear > 1){
-                    ui.print(printCustomer(customer.getId()));
+                    UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter++;
                     continue;
                 }
@@ -191,12 +191,12 @@ public class ManagerImplement implements Manager{
                     diff = todayMonth - orderMonth;
                     }
                     if(diff > 6){
-                        ui.print(printCustomer(customer.getId()));
+                        UIImplement.getInstance().print(printCustomer(customer.getId()));
                         counter++;
                 }
         }
         if (counter == 0){
-            ui.print("Все клиенты проходили ТО в течении последних 6 месяцев");
+            UIImplement.getInstance().print("Все клиенты проходили ТО в течении последних 6 месяцев");
         }
     }
 
