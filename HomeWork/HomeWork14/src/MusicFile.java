@@ -2,6 +2,7 @@ public class MusicFile {
     private String nameOfTrack;
     private long length;
     private String path;
+    private String checkSum;
 
     public String getNameOfTrack() {
         return nameOfTrack;
@@ -27,6 +28,14 @@ public class MusicFile {
         this.path = path;
     }
 
+    public String getCheckSum() {
+        return checkSum;
+    }
+
+    public void setCheckSum(String checkSum) {
+        this.checkSum = checkSum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,9 +44,7 @@ public class MusicFile {
         MusicFile musicFile = (MusicFile) o;
 
         if (getLength() != musicFile.getLength()) return false;
-        if (getNameOfTrack() != null ? !getNameOfTrack().equals(musicFile.getNameOfTrack()) : musicFile.getNameOfTrack() != null)
-            return false;
-        return getPath() != null ? getPath().equals(musicFile.getPath()) : musicFile.getPath() == null;
+        return getNameOfTrack() != null ? getNameOfTrack().equals(musicFile.getNameOfTrack()) : musicFile.getNameOfTrack() == null;
     }
 
     @Override

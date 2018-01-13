@@ -1,7 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -41,17 +37,6 @@ public class MusicCatalog {
                 }
             }
             sb.append("_________________________________________________________\n");
-        }
-
-        try {
-            FileOutputStream fos = new FileOutputStream("music collection.txt");
-            byte[] buffer = sb.toString().getBytes();
-            fos.write(buffer, 0, buffer.length);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return sb.toString();
     }
