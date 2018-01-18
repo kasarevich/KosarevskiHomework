@@ -19,6 +19,8 @@ public class ParsingThread extends Thread{
     private Station stationFromXML;
     private Station stationFromJson;
 
+    private static boolean isReady = false;
+
 
     public Station getStationFromXML() {
         return stationFromXML;
@@ -32,38 +34,46 @@ public class ParsingThread extends Thread{
         this.downloadThread = downloadThread;
     }
 
+    public static void changeReady(){
+        isReady = !isReady;
+    }
 
     @Override
     public void run() {
 
             System.out.println("Waiting download XML...");
-            synchronized (downloadThread) {
+            synchronized (downloadThread) {     //синхронизируемся по даунлоадеру
                 try {
-                    downloadThread.wait();
+                    if(!isReady) {              // если файлы еще не готовы для парсинга, засыпаем
+                        downloadThread.wait();  // чтобы предотвратить "вечную спячку"
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Parsing XML...");
-
+            System.out.println("Parsing XML...");    // даунлоадер все скачал и разбудил парсер
+            changeReady();                           // устанавливаем переключатель готовности в исходное положение - false
             try {
-                stationFromXML = parseXML(DownloadThread.nameXML);
+                stationFromXML = parseXML(DownloadThread.nameXML);      // парсим XML
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             System.out.println("The parsing is over!");
-
-            downloadThread.notify();
-        synchronized (downloadThread) {
+            synchronized (downloadThread) {             //парсинг окончен, будим даунлоадер
+                downloadThread.notify();
+            }
+            synchronized (downloadThread) {
             try {
-                downloadThread.wait();
+                if(!isReady) {                      // сами засыпаем, если файлы даунлоадера еще не готовы
+                    downloadThread.wait();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-            System.out.println("Parsing JSON...");
-
+            System.out.println("Parsing JSON...");         // нас разбудили, возвращаем переключатель в исходное и парсим JSON
+            changeReady();
             try {
                 stationFromJson = parseJSON(DownloadThread.nameJSON);
             } catch (Exception e) {
@@ -71,7 +81,9 @@ public class ParsingThread extends Thread{
             }
 
             System.out.println("The parsing is over!");
-           downloadThread.notify();
+            synchronized (downloadThread) {
+            downloadThread.notify();                // парсинг окончен, будим даунлоадер, чтобы он сообщил об окончании программы
+        }
         }
 
 

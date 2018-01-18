@@ -9,21 +9,22 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {          // в цикле запускаю мейн, потому что с первоначальной версией иногда все корректно работает,иногда зависает.
+                                                // поэтому повторяю все 20 раз, чтобы проверить на возникновение ошибки
 
             DownloadThread downloadThread = new DownloadThread();
             ParsingThread parsingThread = new ParsingThread();
-            parsingThread.setDownloadThread(downloadThread);
+            parsingThread.setDownloadThread(downloadThread);        // в парсер передаем даунлоадер, по нему будет синхронизация
             parsingThread.start();
             downloadThread.start();
 
             try {
-                downloadThread.join();
+                downloadThread.join();                              // поскольку даунлоадер гарантированно последним окончит работу, ожидаем его завершения
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Print result of XML parsing:");
+            System.out.println("Print result of XML parsing:");       // выводим на экран результаты парсинга
             showAll(parsingThread.getStationFromXML());
 
             System.out.println("Print result of JSON parsing:");
@@ -32,8 +33,10 @@ public class App {
             File xml = new File(DownloadThread.nameXML);
             File json = new File(DownloadThread.nameJSON);
 
-            xml.delete();
-            json.delete();
+            xml.delete();                       // удаляем скачанные файлы
+            json.delete();                      // потому что в цикле пытаемся проверить ошибки синхронизации,
+                                                // а так если парсер работает раньше даунлоадера, он может начать парсить уже имеющиеся файлы
+                                                // а поскольку они удалены, мы увидим ошибку с случае некорректной работы
         }
     }
 
