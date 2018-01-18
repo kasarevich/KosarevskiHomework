@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.MalformedInputException;
 
 public class DownloadThread extends Thread {
     public static String nameXML = "customers.xml";
     public static String nameJSON = "customers.json";
-
 
 
     @Override
@@ -26,10 +24,10 @@ public class DownloadThread extends Thread {
 
             System.out.println("XML file was downloaded!");
 
-           this.notifyAll();
+           notify();
 
             try {
-                this.wait();
+                wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -44,10 +42,10 @@ public class DownloadThread extends Thread {
 
             System.out.println("JSON file was downloaded!");
 
-          this.notifyAll();
+            notify();
 
             try {
-               this.wait();
+                wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -19,6 +19,7 @@ public class ParsingThread extends Thread{
     private Station stationFromXML;
     private Station stationFromJson;
 
+
     public Station getStationFromXML() {
         return stationFromXML;
     }
@@ -34,15 +35,15 @@ public class ParsingThread extends Thread{
 
     @Override
     public void run() {
-        synchronized (downloadThread) {
+
             System.out.println("Waiting download XML...");
-
-            try {
-               downloadThread.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized (downloadThread) {
+                try {
+                    downloadThread.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-
             System.out.println("Parsing XML...");
 
             try {
@@ -54,11 +55,13 @@ public class ParsingThread extends Thread{
             System.out.println("The parsing is over!");
 
             downloadThread.notify();
+        synchronized (downloadThread) {
             try {
-              downloadThread.wait();
+                downloadThread.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
             System.out.println("Parsing JSON...");
 
             try {
@@ -70,7 +73,7 @@ public class ParsingThread extends Thread{
             System.out.println("The parsing is over!");
            downloadThread.notify();
         }
-    }
+
 
     public Station parseXML(String nameOfFile) throws Exception{
         Station station = new Station();

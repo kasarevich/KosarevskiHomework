@@ -1,35 +1,41 @@
 import entity.Customer;
 import entity.Station;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        DownloadThread downloadThread = new DownloadThread();
-        ParsingThread parsingThread = new ParsingThread();
-        parsingThread.setDownloadThread(downloadThread);
-        parsingThread.start();
-        downloadThread.start();
 
-        try {
-            downloadThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 20; i++) {
+
+            DownloadThread downloadThread = new DownloadThread();
+            ParsingThread parsingThread = new ParsingThread();
+            parsingThread.setDownloadThread(downloadThread);
+            parsingThread.start();
+            downloadThread.start();
+
+            try {
+                downloadThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Print result of XML parsing:");
+            showAll(parsingThread.getStationFromXML());
+
+            System.out.println("Print result of JSON parsing:");
+            showAll(parsingThread.getStationFromJson());
+
+            File xml = new File(DownloadThread.nameXML);
+            File json = new File(DownloadThread.nameJSON);
+
+            xml.delete();
+            json.delete();
         }
-
-
-
-        System.out.println("Print result of XML parsing:");
-        showAll(parsingThread.getStationFromXML());
-
-        System.out.println("Print result of JSON parsing:");
-        showAll(parsingThread.getStationFromJson());
-
-
     }
-
 
 
 
