@@ -1,16 +1,12 @@
 import entity.Customer;
 import entity.Station;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-
-        for (int i = 0; i < 20; i++) {          // в цикле запускаю мейн, потому что с первоначальной версией иногда все корректно работает,иногда зависает.
-                                                // поэтому повторяю все 20 раз, чтобы проверить на возникновение ошибки
 
             DownloadThread downloadThread = new DownloadThread();
             ParsingThread parsingThread = new ParsingThread();
@@ -30,21 +26,8 @@ public class App {
             System.out.println("Print result of JSON parsing:");
             showAll(parsingThread.getStationFromJson());
 
-            File xml = new File(DownloadThread.nameXML);
-            File json = new File(DownloadThread.nameJSON);
 
-            xml.delete();                       // удаляем скачанные файлы
-            json.delete();                      // потому что в цикле пытаемся проверить ошибки синхронизации,
-                                                // а так если парсер работает раньше даунлоадера, он может начать парсить уже имеющиеся файлы
-                                                // а поскольку они удалены, мы увидим ошибку с случае некорректной работы
-        }
     }
-
-
-
-
-
-
 
 
     public static void showAll(Station st){
