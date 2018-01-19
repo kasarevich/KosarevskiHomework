@@ -1,14 +1,14 @@
-package by.it_academy.domain;
+package by.it_academy.controller;
 
-import by.it_academy.data.parsers.JSONParser;
-import by.it_academy.domain.entity.Customer;
-import by.it_academy.domain.entity.Station;
-import by.it_academy.domain.interfaces.Manager;
-import by.it_academy.domain.interfaces.Parser;
-import by.it_academy.domain.interfaces.URLConnection;
-import by.it_academy.data.parsers.XMLParser;
-import by.it_academy.data.url.URLConnector;
-import by.it_academy.presentation.UIImplement;
+import by.it_academy.model.parsers.JSONParser;
+import by.it_academy.model.entity.Customer;
+import by.it_academy.model.entity.Station;
+import by.it_academy.controller.interfaces.Manager;
+import by.it_academy.controller.interfaces.Parser;
+import by.it_academy.controller.interfaces.URLConnection;
+import by.it_academy.model.parsers.XMLParser;
+import by.it_academy.model.url.URLConnector;
+import by.it_academy.view.UIImplement;
 
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +39,6 @@ public class ManagerImplement implements Manager{
         URLConnection url = new URLConnector(nameOfFile);
         try {
             url.downloadFile(link);
-            UIImplement.getInstance().print("Файл успешно скачан! Название файла: " + nameOfFile);
         }catch (MalformedInputException e){
             UIImplement.getInstance().print(e.getMessage());
         }catch (IOException e){

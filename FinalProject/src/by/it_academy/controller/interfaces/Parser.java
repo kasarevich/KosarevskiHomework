@@ -1,6 +1,6 @@
-package by.it_academy.domain.interfaces;
+package by.it_academy.controller.interfaces;
 
-import by.it_academy.domain.entity.Station;
+import by.it_academy.model.entity.Station;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;

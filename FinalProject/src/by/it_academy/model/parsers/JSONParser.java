@@ -1,7 +1,7 @@
-package by.it_academy.data.parsers;
+package by.it_academy.model.parsers;
 
-import by.it_academy.domain.entity.Station;
-import by.it_academy.domain.interfaces.Parser;
+import by.it_academy.model.entity.Station;
+import by.it_academy.controller.interfaces.Parser;
 import com.google.gson.Gson;
 
 import javax.xml.parsers.ParserConfigurationException;

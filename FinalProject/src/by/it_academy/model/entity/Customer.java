@@ -1,4 +1,4 @@
-package by.it_academy.domain.entity;
+package by.it_academy.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 

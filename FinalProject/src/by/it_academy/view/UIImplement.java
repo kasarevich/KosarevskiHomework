@@ -1,8 +1,8 @@
-package by.it_academy.presentation;
+package by.it_academy.view;
 
-import by.it_academy.domain.interfaces.UI;
-import by.it_academy.domain.Format;
-import by.it_academy.domain.ManagerImplement;
+import by.it_academy.controller.interfaces.UI;
+import by.it_academy.controller.Format;
+import by.it_academy.controller.ManagerImplement;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,10 +10,17 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 public class UIImplement implements UI{
-    private static UIImplement instance = new UIImplement();
+    private static UIImplement instance;
     ManagerImplement mi = new ManagerImplement();
     Format format;
+    static volatile boolean isReady = false;            // флаг готовности скачивания и парсинга
+
+    public void setReady(boolean instance){
+        isReady = instance;
+    }
 
 
     public static UIImplement getInstance(){
@@ -23,8 +30,9 @@ public class UIImplement implements UI{
         return instance;
     }
 
+
     @Override
-    public void download(){
+    public void downloadAndParse(){
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Для скачивания XML файла нажмите \"0\", для скачивания JSON файла нажмите \"1\":");
         try {
@@ -33,30 +41,60 @@ public class UIImplement implements UI{
                 format = Format.XML;
                 mi.setLink("http://kiparo.ru/t/service_station.xml");
                 mi.setNameOfFile("customers.xml");
-                mi.connect();
             }
-            if (choice == 1){
+            if (choice == 1) {
                 format = Format.JSON;
                 mi.setLink("http://kiparo.ru/t/service_station.json");
                 mi.setNameOfFile("customers.json");
-                mi.connect();
             }
+
+
+
+                Thread downloading = new Thread(new Runnable() {      // Скачивание и парсинг происходят в новом потоке
+                    @Override
+                    public void run() {
+                        mi.connect();
+
+                        if(format == Format.XML){
+                            mi.parseXML();
+                        } else {
+                            mi.parseJSON();
+                        }
+
+                        try {
+                            Thread.sleep(4000);             // Чтобы была видна анимация загрузки) быстро качает и парсит
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        UIImplement.getInstance().setReady(true);
+                    }
+                });
+
+
+
+            downloading.start();
+
+
+            System.out.println("Ожидание скачивания и парсинга...");
+
+
+            while(!isReady) {
+                for (int i = 0; i < 3; i++) {
+                    System.out.print(".");
+                    Thread.sleep(500);
+                }
+                for (int i = 0; i < 3; i++) {
+                    System.out.print("\r");
+                    Thread.sleep(500);
+                }
+
+            }
+            setReady(false);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public void parseFile(){
-        System.out.println("Парсинг " + format.name() + " файла...");
-        if(format == Format.XML){
-            mi.parseXML();
-        } else {
-            mi.parseJSON();
-        }
-        System.out.println("Парсинг " + format.name() + " файла прошел успешно!");
     }
 
     @Override

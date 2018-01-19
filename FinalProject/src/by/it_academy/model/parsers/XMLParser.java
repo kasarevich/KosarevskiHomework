@@ -1,8 +1,8 @@
-package by.it_academy.data.parsers;
+package by.it_academy.model.parsers;
 
-import by.it_academy.domain.entity.Customer;
-import by.it_academy.domain.entity.Station;
-import by.it_academy.domain.interfaces.Parser;
+import by.it_academy.model.entity.Customer;
+import by.it_academy.model.entity.Station;
+import by.it_academy.controller.interfaces.Parser;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

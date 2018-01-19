@@ -1,6 +1,4 @@
-package by.it_academy.domain.interfaces;
-
-import by.it_academy.domain.entity.Station;
+package by.it_academy.controller.interfaces;
 
 public interface Manager {
     public void connect();
