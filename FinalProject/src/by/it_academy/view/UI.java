@@ -1,4 +1,4 @@
-package by.it_academy.controller.interfaces;
+package by.it_academy.view;
 
 public interface UI {
     public void downloadAndParse();

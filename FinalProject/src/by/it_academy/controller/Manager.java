@@ -1,4 +1,4 @@
-package by.it_academy.controller.interfaces;
+package by.it_academy.controller;
 
 import by.it_academy.model.parsers.ParserFactory;
 

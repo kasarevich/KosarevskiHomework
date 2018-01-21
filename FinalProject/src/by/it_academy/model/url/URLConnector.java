@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class URLConnector{ 
+public class URLConnector{
     private String nameOfFile;
 
     public URLConnector(String nameOfFile) {

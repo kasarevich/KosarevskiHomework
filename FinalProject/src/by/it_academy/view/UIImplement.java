@@ -1,6 +1,5 @@
 package by.it_academy.view;
 
-import by.it_academy.controller.interfaces.UI;
 import by.it_academy.controller.ManagerImplement;
 import by.it_academy.controller.Format;
 
