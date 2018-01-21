@@ -107,17 +107,17 @@ public class ManagerImplement implements Manager{
         }
         StringBuilder customerPrinter = new StringBuilder(); // Создаем Stringbuilder со всеми данными об одном клиенте
         if (customer != null){
-        customerPrinter.append(String.valueOf(customer.getId()));
-        customerPrinter.append(customer.getName());
-        customerPrinter.append(sdf.format(customer.getDateOfBirth()));
-        customerPrinter.append(sdf.format(customer.getLastOrder()));
+        customerPrinter.append(String.valueOf(customer.getId()) + "\t");
+        customerPrinter.append(customer.getName() + " ");
+        customerPrinter.append(sdf.format(customer.getDateOfBirth()) + " ");
+        customerPrinter.append(sdf.format(customer.getLastOrder()) + " ");
         if(customer.isDiscount()){
-            customerPrinter.append("Есть");
+            customerPrinter.append("Есть" + " ");
         }else if(!customer.isDiscount()) {
-            customerPrinter.append("Нет");
-        }else { customerPrinter.append("Нет информации");}
+            customerPrinter.append("Нет" + " ");
+        }else { customerPrinter.append("Нет информации" + " ");}
         for (String car : customer.getCars()){
-            customerPrinter.append(car);
+            customerPrinter.append(car + ", ");
              }
         }
         return customerPrinter.toString();
