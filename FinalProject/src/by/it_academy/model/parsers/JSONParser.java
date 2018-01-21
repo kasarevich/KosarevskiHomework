@@ -1,20 +1,19 @@
 package by.it_academy.model.parsers;
 
 import by.it_academy.model.entity.Station;
-import by.it_academy.controller.interfaces.Parser;
 import com.google.gson.Gson;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class JSONParser implements Parser{
+public class JSONParser implements ParserFactory{
     @Override
-    public Station parse(String nameOfFile)throws ParserConfigurationException, FileNotFoundException,
-            IOException, ParseException, Exception{
+    public Station parse(String nameOfFile)throws ParserConfigurationException,
+            IOException, ParseException, SAXException {
 
         Gson gson = new Gson();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(nameOfFile));

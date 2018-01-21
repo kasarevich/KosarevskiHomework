@@ -4,12 +4,10 @@ import by.it_academy.model.parsers.JSONParser;
 import by.it_academy.model.entity.Customer;
 import by.it_academy.model.entity.Station;
 import by.it_academy.controller.interfaces.Manager;
-import by.it_academy.controller.interfaces.Parser;
-import by.it_academy.controller.interfaces.URLConnection;
+import by.it_academy.model.parsers.ParserFactory;
 import by.it_academy.model.parsers.XMLParser;
 import by.it_academy.model.url.URLConnector;
 import by.it_academy.view.UIImplement;
-
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
@@ -22,36 +20,55 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ManagerImplement implements Manager{
+    static Format FORMAT;
     String nameOfFile;
     String link;
-    Station st = new Station();
+    Station st;
 
-    public void setNameOfFile(String nameOfFile) {
-        this.nameOfFile = nameOfFile;
+    /**
+     * Задаем формат, ссылку для скачивания и имя файла, в который сохранятся данные
+     * @param format - Enum форматов(XML, JSON)
+     */
+    public void setFORMAT(Format format){
+        this.FORMAT = format;
+        if (format == Format.XML){
+            this.link = "http://kiparo.ru/t/service_station.xml";
+            this.nameOfFile = "customers.xml";
+        }
+        else {
+            this.link = "http://kiparo.ru/t/service_station.json";
+            this.nameOfFile = "customers.json";
+        }
     }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
 
     @Override
     public void connect(){
-        URLConnection url = new URLConnector(nameOfFile);
+        URLConnector url = new URLConnector(nameOfFile); // Задаем имя файла, в который URLConnector будет сохранять данные
         try {
-            url.downloadFile(link);
+            url.downloadFile(link);                      //Скачиваем данные по ссылке
         }catch (MalformedInputException e){
-            UIImplement.getInstance().print(e.getMessage());
+            UIImplement.getInstance().print(e.getMessage()); // Все сообщения об ошибках выводятся пользователю через UI
         }catch (IOException e){
             UIImplement.getInstance().print(e.getMessage());
         }catch (Exception e){
             UIImplement.getInstance().print(e.getMessage());
         }
     }
+
     @Override
-    public void parseXML(){
+    public void parseFile(){
     try {
-        Parser parser = new XMLParser();
-        st = parser.parse(nameOfFile);
+        ParserFactory parser;    // Объявляем парсер через интерфейс
+        if(FORMAT == Format.XML) {
+            parser = new XMLParser();  // инициализируем парсер экземпляром XML-парсера, либо JSON-парсера,
+        }                              // в зависимости от выбора пользователя
+        else {
+            parser = new JSONParser();
+        }
+
+        this.st = parser.parse(nameOfFile); // далее парсим файл и получаем объект СТО
+
     }catch (ParserConfigurationException e){
         UIImplement.getInstance().print(e.getMessage());
     }catch (ParseException e){
@@ -65,33 +82,22 @@ public class ManagerImplement implements Manager{
     }
     }
 
-    @Override
-    public void parseJSON(){
-        try {
-            Parser parser = new JSONParser();
-            st = parser.parse(nameOfFile);
-        }catch (ParserConfigurationException e){
-            UIImplement.getInstance().print(e.getMessage());
-        }catch (ParseException e){
-            UIImplement.getInstance().print(e.getMessage());
-        }catch (FileNotFoundException e){
-            UIImplement.getInstance().print(e.getMessage());
-        }catch (IOException e){
-            UIImplement.getInstance().print(e.getMessage());
-        }catch (Exception e){
-            UIImplement.getInstance().print(e.getMessage());
-        }
-    }
-
+    /**
+     * Вывод на экран информации обо всех клиентах станции
+     */
     @Override
     public void showAll(){
-        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода
+        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода шапки
         UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getLocation()+ (char)27+ "[0m");
         for (int i = 0; i < st.getCustomers().size(); i++){
             UIImplement.getInstance().print(printCustomer(i));
             }
         }
 
+    /**
+     * @param id - ID Клиента, информацию о котором необходимо получить
+     * @return String customerPrinter - все данные одного клиента
+     */
     @Override
     public String printCustomer(int id){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -100,19 +106,19 @@ public class ManagerImplement implements Manager{
             if(st.getCustomers().get(i).getId() == id)     // клиента не по индексу листа, а по id
                 customer = st.getCustomers().get(i);
         }
-        List<String> customerPrinter = new ArrayList<String>(); // Создаем строковый список со всеми данными о клиенте
+        StringBuilder customerPrinter = new StringBuilder(); // Создаем Stringbuilder со всеми данными об одном клиенте
         if (customer != null){
-        customerPrinter.add(String.valueOf(customer.getId()));
-        customerPrinter.add(customer.getName());
-        customerPrinter.add(sdf.format(customer.getDateOfBirth()));
-        customerPrinter.add(sdf.format(customer.getLastOrder()));
+        customerPrinter.append(String.valueOf(customer.getId()));
+        customerPrinter.append(customer.getName());
+        customerPrinter.append(sdf.format(customer.getDateOfBirth()));
+        customerPrinter.append(sdf.format(customer.getLastOrder()));
         if(customer.isDiscount()){
-            customerPrinter.add("Есть");
+            customerPrinter.append("Есть");
         }else if(!customer.isDiscount()) {
-            customerPrinter.add("Нет");
-        }else { customerPrinter.add("Нет информации");}
+            customerPrinter.append("Нет");
+        }else { customerPrinter.append("Нет информации");}
         for (String car : customer.getCars()){
-            customerPrinter.add(car);
+            customerPrinter.append(car);
              }
         }
         return customerPrinter.toString();
@@ -128,13 +134,19 @@ public class ManagerImplement implements Manager{
                 if (matcher.find()){
                     UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter ++;
+                    break; // чтобы не дублировало клиента, если у него 2 машины со схожими именами(к примеру, вводим "а",
+                           // и на экран выведет 2 раза пользователя с id 1, потому что у него toyota и audi )
                 }
             }
         }
         if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
     }
 
-
+    /**
+     * Принцип поиска похож на поиск по названию авто, но это не дублирование кода,
+     * поскольку в searchCustomerByCar надо еще пробегать по ArrayList машин
+     * @param name
+     */
     @Override
     public void searchCustomerByName(String name){
         Pattern pattern = Pattern.compile(name.toLowerCase());
@@ -144,20 +156,20 @@ public class ManagerImplement implements Manager{
                 if (matcher.find()){
                     UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter ++;
-            }
+                }
         }
         if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
     }
 
     @Override
     public void searchCustomerByBirthday(){
-        Calendar calendar = new GregorianCalendar().getInstance();
+        Calendar calendar = new GregorianCalendar().getInstance();  // Получаем текущий месяц
         int todayMonth = calendar.get(Calendar.MONTH) + 1;
         int monthOfBirth = 13;
         int counter = 0;
-        for (Customer customer : st.getCustomers()){
-             monthOfBirth = customer.getDateOfBirth().getMonth() + 1;
-            if(monthOfBirth == todayMonth){
+        for (Customer customer : st.getCustomers()){                   // Пробегаем по всем пользователям и сравниваем
+             monthOfBirth = customer.getDateOfBirth().getMonth() + 1;  // месяц рождения с текущим месяцем. Если есть совпадение,
+            if(monthOfBirth == todayMonth){                            // выводим на экран информацию о пользователе
                 UIImplement.getInstance().print(printCustomer(customer.getId()));
                 counter ++;
             }
@@ -169,27 +181,27 @@ public class ManagerImplement implements Manager{
 
     @Override
     public void searchCustomerByLastOrder(){
-        Calendar today = new GregorianCalendar().getInstance();
+        Calendar today = new GregorianCalendar().getInstance(); // Получаем текущую дату
         int todayMonth = today.get(Calendar.MONTH) + 1;
         int todayYear = today.get(Calendar.YEAR);
         Calendar lastOrder = new GregorianCalendar();
-        int diff;
+        int diff;                                              // разница между последним посещением и текущим месяцем
         int counter = 0;
         for (Customer customer : st.getCustomers()){
             lastOrder.setTime(customer.getLastOrder());
                 int orderMonth = lastOrder.get(Calendar.MONTH)+1;
-                int orderYear = lastOrder.get(Calendar.YEAR);
+                int orderYear = lastOrder.get(Calendar.YEAR);       // Получаем месяц и год последнего посещения
                 if(todayYear - orderYear > 1){
                     UIImplement.getInstance().print(printCustomer(customer.getId()));
                     counter++;
                     continue;
                 }
-                diff = todayMonth - orderMonth;
+                diff = todayMonth - orderMonth;                 // Находим разницу между текущим месяцем и месяцем последнего посещения
                 if(diff < 0){
                     todayMonth += 12;
                     diff = todayMonth - orderMonth;
                     }
-                    if(diff > 6){
+                    if(diff > 6){                               // Выводим на экран клиентов, которые не обращались на СТО более 6 месяцев
                         UIImplement.getInstance().print(printCustomer(customer.getId()));
                         counter++;
                 }

@@ -2,7 +2,7 @@ package by.it_academy.model.parsers;
 
 import by.it_academy.model.entity.Customer;
 import by.it_academy.model.entity.Station;
-import by.it_academy.controller.interfaces.Parser;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class XMLParser implements Parser  {
+public class XMLParser implements ParserFactory {
     @Override
     public Station parse(String nameOfFile) throws ParserConfigurationException, IOException,
-            ParseException, Exception{
+            ParseException, SAXException {
         Station station = new Station();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -65,7 +66,6 @@ public class XMLParser implements Parser  {
             NodeList carNodeList = element.getElementsByTagName("car");
             List<String> cars = new ArrayList<>();
             for(int j=0; j< carNodeList.getLength(); j++){
-
                 Node carNode = carNodeList.item(j);
                 if (carNode.getNodeType() != Node.ELEMENT_NODE) {
                     continue;
@@ -88,7 +88,7 @@ public class XMLParser implements Parser  {
         }
         station.setCustomers(customers);
         if (station == null){
-            throw new Exception("Не удалось расшифровать файл");
+            throw new SAXException("Не удалось расшифровать файл");
         }
         return station;
     }

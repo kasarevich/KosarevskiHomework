@@ -1,24 +1,20 @@
 package by.it_academy.model.url;
 
-import by.it_academy.controller.interfaces.URLConnection;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.MalformedInputException;
 
-public class URLConnector implements URLConnection{ // до вызова, после того, как определились, джисон или хмл, делаем сет.нэймоффайл
+public class URLConnector{ // до вызова, после того, как определились, джисон или хмл, делаем сет.нэймоффайл
     private String nameOfFile;
 
     public URLConnector(String nameOfFile) {
         this.nameOfFile = nameOfFile;
     }
 
-    @Override
-    public void downloadFile(String link) throws MalformedInputException, IOException, Exception{
+    public void downloadFile(String link) throws  IOException{
         URL url = new URL(link);
         HttpURLConnection httpURLConnection =
                 (HttpURLConnection) url.openConnection();
@@ -33,12 +29,8 @@ public class URLConnector implements URLConnection{ // до вызова, пос
                 fileOutputStream.write(buffer, 0, byteRead);
             }
         }else {
-            throw new Exception("Данные не найдены, response code = " + responseCode);
+            throw new IOException("Данные не найдены, response code = " + responseCode);
         }
 
-    }
-
-    public String getNameOfFile() {
-        return nameOfFile;
     }
 }
