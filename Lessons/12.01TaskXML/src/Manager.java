@@ -1,11 +1,12 @@
-import com.sun.java.util.jar.pack.Package;
+
 
 import java.io.File;
 import java.util.ArrayList;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Manager {
+public class Manager implements {
     static File dire;
     private ArrayList<File> mp3files = new ArrayList<>();
 
@@ -35,15 +36,16 @@ public class Manager {
             }
         }
         return mp3;
+
+
     }
 
-    public void parseJava() {
+    public  void parseJava() {
         for (File m: mp3files){
             System.out.println(m.getName());
         }
         CreateXML createXML = new CreateXML();
         createXML.makeXML(mp3files);
     }
-
 
 }

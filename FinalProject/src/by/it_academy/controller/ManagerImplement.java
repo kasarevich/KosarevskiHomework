@@ -24,6 +24,7 @@ public class ManagerImplement implements Manager{
     String link;
     Station st;
 
+
     /**
      * Задаем формат, ссылку для скачивания и имя файла, в который сохранятся данные
      * @param format - Enum форматов(XML, JSON)

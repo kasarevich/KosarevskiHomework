@@ -61,12 +61,9 @@ public final class UIImplement implements UI{
                     }
                 });
 
-
             downloading.start();
 
-
             System.out.println("Ожидание скачивания и парсинга");
-
 
             while(!isReady) {                                   // пока поток парсинга не изменил флаг, на экран выводит анимацию
                 for (int i = 0; i < 3; i++) {
