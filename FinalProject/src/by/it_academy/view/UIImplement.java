@@ -16,17 +16,10 @@ import java.util.regex.Pattern;
  */
 
 public final class UIImplement implements UI{
-    private static UIImplement instance;       // Реализация паттерна Singleton
-    ManagerImplement mi = new ManagerImplement();
 
     private static volatile boolean isReady = false;            // флаг готовности скачивания и парсинга
 
-    public static synchronized UIImplement getInstance(){
-        if (instance == null){
-            instance = new UIImplement();
-        }
-        return instance;
-    }
+
 
     /**
      * downloadAndParse предлагает пользователю выбрать XML или JSON файл нужно скачивать
@@ -35,22 +28,23 @@ public final class UIImplement implements UI{
      */
     @Override
     public void downloadAndParse(){
+        ManagerImplement.getInstance().ui = this;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Для скачивания XML файла нажмите \"0\", для скачивания JSON файла нажмите \"1\":");
         try {
             int choice = Integer.parseInt(reader.readLine()); //в зависимости от выбора пользователя
             if (choice == 0){                                 //устанавливаем в менеджере ссылку и имя файла(XML либо JSON)
-                mi.setFORMAT(Format.XML);
+                ManagerImplement.getInstance().setFORMAT(Format.XML);
             }
             if (choice == 1) {
-                mi.setFORMAT(Format.JSON);
+                ManagerImplement.getInstance().setFORMAT(Format.JSON);
             }
 
                 Thread downloading = new Thread(new Runnable() {      // Скачивание и парсинг происходят в новом потоке
                     @Override
                     public void run() {
-                        mi.connect();
-                        mi.parseFile();
+                        ManagerImplement.getInstance().connect();
+                        ManagerImplement.getInstance().parseFile();
 
                         try {
                             Thread.sleep(5000);             // Чтобы была видна анимация загрузки) потому что быстро качает и парсит
@@ -143,7 +137,7 @@ public final class UIImplement implements UI{
     public void printAllCustomers(){
         System.out.println("Вывод на экран всей информаци о станции:");
         printTable();
-        mi.showAll();
+        ManagerImplement.getInstance().showAll();
     }
 
     public  void printTable(){
@@ -178,7 +172,7 @@ public final class UIImplement implements UI{
         Pattern p = Pattern.compile("^[A-za-z0-9]+\\s*[A-za-z0-9]*$"); // Только латинские буквы любого регистра, либо цифры, может быть пробел
         Matcher m = p.matcher(carName);                                // после которого может быть строка или цифра
         if(carName!=null & m.matches()) {
-            mi.searchCustomerByCar(carName);
+            ManagerImplement.getInstance().searchCustomerByCar(carName);
         }else{
             System.out.println("Неверный ввод!");
         }
@@ -201,7 +195,7 @@ public final class UIImplement implements UI{
         Pattern p = Pattern.compile("^[A-za-z]+\\s*[A-za-z]*$"); // Только латинские буквы любого регистра, может быть пробел
         Matcher m = p.matcher(name);                             // после которого может быть строка
         if(name!=null & m.matches()) {
-            mi.searchCustomerByName(name);
+            ManagerImplement.getInstance().searchCustomerByName(name);
         }else{
             System.out.println("Неверный ввод!");
         }
@@ -209,11 +203,11 @@ public final class UIImplement implements UI{
 
     @Override
     public void searchByBirthday(){
-        mi.searchCustomerByBirthday();
+        ManagerImplement.getInstance().searchCustomerByBirthday();
     }
 
     @Override
     public void searchByLastOrder(){
-    mi.searchCustomerByLastOrder();
+    ManagerImplement.getInstance().searchCustomerByLastOrder();
     }
 }

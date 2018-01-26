@@ -6,7 +6,7 @@ import by.it_academy.model.entity.Station;
 import by.it_academy.model.parsers.ParserFactory;
 import by.it_academy.model.parsers.XMLParser;
 import by.it_academy.model.url.URLConnector;
-import by.it_academy.view.UIImplement;
+import by.it_academy.view.UI;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
@@ -19,10 +19,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ManagerImplement implements Manager{
+    private static ManagerImplement instance;
+
     static Format FORMAT;
-    String nameOfFile;
-    String link;
-    Station st;
+    public static UI ui; // С UI взаимодействуем через интерфейс(если UI будет другим, все
+    // эти же методы он должен реализовывать и нам не важно, какой именно интерфейс)
+    private String nameOfFile;
+    private String link;
+    private Station st;
+
+    public static synchronized ManagerImplement getInstance(){ // Singleton
+        if (instance == null){
+            instance = new ManagerImplement();
+        }
+        return instance;
+    }
 
 
     /**
@@ -48,11 +59,11 @@ public class ManagerImplement implements Manager{
         try {
             url.downloadFile(link);                      //Скачиваем данные по ссылке
         }catch (MalformedInputException e){
-            UIImplement.getInstance().print(e.getMessage()); // Все сообщения об ошибках выводятся пользователю через UI
+            ui.print(e.getMessage()); // Все сообщения об ошибках выводятся пользователю через UI
         }catch (IOException e){
-            UIImplement.getInstance().print(e.getMessage());
+            ui.print(e.getMessage());
         }catch (Exception e){
-            UIImplement.getInstance().print(e.getMessage());
+            ui.print(e.getMessage());
         }
     }
 
@@ -70,15 +81,15 @@ public class ManagerImplement implements Manager{
         this.st = parser.parse(nameOfFile); // далее парсим файл и получаем объект СТО
 
     }catch (ParserConfigurationException e){
-        UIImplement.getInstance().print(e.getMessage());
+        ui.print(e.getMessage());
     }catch (ParseException e){
-        UIImplement.getInstance().print(e.getMessage());
+        ui.print(e.getMessage());
     }catch (FileNotFoundException e){
-        UIImplement.getInstance().print(e.getMessage());
+        ui.print(e.getMessage());
     }catch (IOException e){
-        UIImplement.getInstance().print(e.getMessage());
+        ui.print(e.getMessage());
     }catch (Exception e){
-        UIImplement.getInstance().print(e.getMessage());
+        ui.print(e.getMessage());
     }
     }
 
@@ -87,10 +98,10 @@ public class ManagerImplement implements Manager{
      */
     @Override
     public void showAll(){
-        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода шапки
-        UIImplement.getInstance().print("\t" + (char) 27 + "[36m" + st.getLocation()+ (char)27+ "[0m");
+        ui.print("\t" + (char) 27 + "[36m" + st.getName()+ (char)27+ "[0m");   //Цвет вывода шапки
+        ui.print("\t" + (char) 27 + "[36m" + st.getLocation()+ (char)27+ "[0m");
         for (int i = 0; i < st.getCustomers().size(); i++){
-            UIImplement.getInstance().print(printCustomer(i));
+            ui.print(printCustomer(i));
             }
         }
 
@@ -132,14 +143,14 @@ public class ManagerImplement implements Manager{
             for(String car : customer.getCars()){
                 Matcher matcher = pattern.matcher(car.toLowerCase());
                 if (matcher.find()){
-                    UIImplement.getInstance().print(printCustomer(customer.getId()));
+                    ui.print(printCustomer(customer.getId()));
                     counter ++;
                     break; // чтобы не дублировало клиента, если у него 2 машины со схожими именами(к примеру, вводим "а",
                            // и на экран выведет 2 раза пользователя с id 1, потому что у него toyota и audi )
                 }
             }
         }
-        if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
+        if(counter==0){ui.print("По заданным параметрам клиентов не найдено");}
     }
 
     /**
@@ -154,11 +165,11 @@ public class ManagerImplement implements Manager{
         for(Customer customer : st.getCustomers()){
                 Matcher matcher = pattern.matcher(customer.getName().toLowerCase());
                 if (matcher.find()){
-                    UIImplement.getInstance().print(printCustomer(customer.getId()));
+                    ui.print(printCustomer(customer.getId()));
                     counter ++;
                 }
         }
-        if(counter==0){UIImplement.getInstance().print("По заданным параметрам клиентов не найдено");}
+        if(counter==0){ui.print("По заданным параметрам клиентов не найдено");}
     }
 
     @Override
@@ -170,12 +181,12 @@ public class ManagerImplement implements Manager{
         for (Customer customer : st.getCustomers()){                   // Пробегаем по всем пользователям и сравниваем
              monthOfBirth = customer.getDateOfBirth().getMonth() + 1;  // месяц рождения с текущим месяцем. Если есть совпадение,
             if(monthOfBirth == todayMonth){                            // выводим на экран информацию о пользователе
-                UIImplement.getInstance().print(printCustomer(customer.getId()));
+                ui.print(printCustomer(customer.getId()));
                 counter ++;
             }
         }
         if (counter == 0){
-            UIImplement.getInstance().print("В текущем месяце у клиентов нет Дней Рождения");
+            ui.print("В текущем месяце у клиентов нет Дней Рождения");
         }
     }
 
@@ -192,7 +203,7 @@ public class ManagerImplement implements Manager{
                 int orderMonth = lastOrder.get(Calendar.MONTH)+1;
                 int orderYear = lastOrder.get(Calendar.YEAR);       // Получаем месяц и год последнего посещения
                 if(todayYear - orderYear > 1){
-                    UIImplement.getInstance().print(printCustomer(customer.getId()));
+                    ui.print(printCustomer(customer.getId()));
                     counter++;
                     continue;
                 }
@@ -202,12 +213,12 @@ public class ManagerImplement implements Manager{
                     diff = todayMonth - orderMonth;
                     }
                     if(diff > 6){                               // Выводим на экран клиентов, которые не обращались на СТО более 6 месяцев
-                        UIImplement.getInstance().print(printCustomer(customer.getId()));
+                        ui.print(printCustomer(customer.getId()));
                         counter++;
                 }
         }
         if (counter == 0){
-            UIImplement.getInstance().print("Все клиенты проходили ТО в течении последних 6 месяцев");
+            ui.print("Все клиенты проходили ТО в течении последних 6 месяцев");
         }
     }
 
