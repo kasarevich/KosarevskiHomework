@@ -19,6 +19,9 @@ public class JSONParser implements ParserFactory{
         BufferedReader bufferedReader = new BufferedReader(new FileReader(nameOfFile));
         Station station = gson.fromJson(bufferedReader, Station.class);
 
+        if (station == null){
+            throw new SAXException("Не удалось расшифровать файл");
+        }
         return station;
     }
 }

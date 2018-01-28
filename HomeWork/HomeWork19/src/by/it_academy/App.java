@@ -11,7 +11,6 @@ public class App {
         //  for(String staff : myCollection) - сделать с помощью паттерна итератор
         // имплементим класс Iterator
 
-
     }
 }
 

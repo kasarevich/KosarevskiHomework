@@ -31,10 +31,7 @@ fun main(arg: Array<String>){
     var u: Int? = null   // ? - переменная может принимать значение null
     u?.compareTo(2.5)        //  u? = if(u != null) {...}  u!! - плевать на NullPointerException
 
-
     var c : Byte = u?.toByte() ?: 25 // - аналог сокращенного if-else
-
-
 
 }
 
