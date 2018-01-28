@@ -62,10 +62,11 @@ public final class UIImplement implements UI{
                         }
                         try {
                             Thread.sleep(3000);             // Чтобы была видна анимация загрузки) потому что быстро качает и парсит
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         isReady = true;                          // меняем флаг готовности загрузузки
+                            Thread.sleep(3000);            // поток засыпает и завершается, стобы засинхронизировать с while ниже
+                             } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        }
                     }
                 });
 
