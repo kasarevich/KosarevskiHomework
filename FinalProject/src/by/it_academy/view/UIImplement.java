@@ -86,8 +86,9 @@ public final class UIImplement implements UI{
                 // Если в потоке downloader произошла ошибка парсинга или скачивания, downloader завершится
                 // и не переключит isReady. Тогда здесь будет вечный цикл. Поэтому на каждой итерации
                 // проверяем, работает ли скачивание и парсинг
+
                 if(!downloading.isAlive()){
-                    System.out.println("Превышено время ожидания, возможно неполадки с подключением");
+                    System.out.println("Превышено время ожидания, проверьте подключение к интернету");
                     downloadAndParse();
                     return;
                 }

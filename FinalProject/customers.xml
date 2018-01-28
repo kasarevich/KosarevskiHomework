@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <name>Service station 213</name>
+    <location>Minsk</location>
+    <customers>
+        <id>0</id>
+        <name>Ivan Ivanov</name>
+        <lastOrder>2015-09-25</lastOrder>
+        <dateOfBirth>2004-10-25</dateOfBirth>
+        <car>BMW 5</car>
+        <car>Opel</car>
+        <discount>true</discount>
+    </customers>
+    <customers>
+        <id>1</id>
+        <name>Alex Petrov</name>
+        <lastOrder>2015-01-12</lastOrder>
+        <dateOfBirth>1998-03-24</dateOfBirth>
+        <car>Audi</car>
+        <car>Citroen</car>
+        <car>Toyota</car>
+        <discount>false</discount>
+    </customers>
+    <customers>
+        <id>2</id>
+        <name>Elena Sergeevna</name>
+        <lastOrder>2015-05-12</lastOrder>
+        <dateOfBirth>1999-05-02</dateOfBirth>
+        <car>Peugeot</car>
+        <discount>true</discount>
+    </customers>
+    <customers>
+        <id>3</id>
+        <name>Olga Hlkdkfjj</name>
+        <lastOrder>2015-08-12</lastOrder>
+        <dateOfBirth>1995-12-10</dateOfBirth>
+        <car>Peugeot</car>
+        <car>Opel</car>
+        <discount>false</discount>
+    </customers>
+    <customers>
+        <id>4</id>
+        <name>Sergei Dfsdkjd</name>
+        <lastOrder>2015-09-15</lastOrder>
+        <dateOfBirth>2005-05-04</dateOfBirth>
+        <car>Lada</car>
+        <discount>true</discount>
+    </customers>
+</root>
