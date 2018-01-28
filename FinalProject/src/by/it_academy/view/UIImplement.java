@@ -73,8 +73,6 @@ public final class UIImplement implements UI{
 
             System.out.println("Ожидание скачивания и парсинга");
 
-            long start = System.currentTimeMillis();
-
             while(!isReady) {// пока поток парсинга не изменил флаг, на экран выводит анимацию
                 for (int i = 0; i < 4; i++) {
                     Thread.sleep(500);
@@ -85,8 +83,10 @@ public final class UIImplement implements UI{
                     Thread.sleep(500);
                 }
 
-                long finish = System.currentTimeMillis();
-                if(finish - start > 8000){
+                // Если в потоке downloader произошла ошибка парсинга или скачивания, downloader завершится
+                // и не переключит isReady. Тогда здесь будет вечный цикл. Поэтому на каждой итерации
+                // проверяем, работает ли скачивание и парсинг
+                if(!downloading.isAlive()){
                     System.out.println("Превышено время ожидания, возможно неполадки с подключением");
                     downloadAndParse();
                     return;
