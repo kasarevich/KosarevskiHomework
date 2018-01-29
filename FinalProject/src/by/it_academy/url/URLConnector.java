@@ -1,4 +1,4 @@
-package by.it_academy.model.url;
+package by.it_academy.url;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -2,10 +2,10 @@ package by.it_academy.controller;
 
 import by.it_academy.model.entity.Customer;
 import by.it_academy.model.entity.Station;
-import by.it_academy.model.parsers.JSONParser;
-import by.it_academy.model.parsers.ParserFactory;
-import by.it_academy.model.parsers.XMLParser;
-import by.it_academy.model.url.URLConnector;
+import by.it_academy.parsers.JSONParser;
+import by.it_academy.parsers.ParserFactory;
+import by.it_academy.parsers.XMLParser;
+import by.it_academy.url.URLConnector;
 import by.it_academy.view.UI;
 import org.xml.sax.SAXException;
 

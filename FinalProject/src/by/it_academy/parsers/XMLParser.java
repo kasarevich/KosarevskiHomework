@@ -1,4 +1,4 @@
-package by.it_academy.model.parsers;
+package by.it_academy.parsers;
 
 import by.it_academy.model.entity.Customer;
 import by.it_academy.model.entity.Station;
